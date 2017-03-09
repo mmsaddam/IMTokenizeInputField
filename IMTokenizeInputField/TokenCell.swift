@@ -18,7 +18,7 @@ protocol TokenCellDecorable {
 
 class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
     
-    @IBOutlet weak var nameLabel: UILabel!
+    var nameLabel = UILabel()
     
     static let indentifier = "TokenCell"
     
@@ -27,9 +27,28 @@ class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
     var token: Token?
     
     override func awakeFromNib() {
-        
+    }
+    override func layoutSubviews() {
+        let superSize = self.frame.size
+        nameLabel.frame = CGRect(x: 5.0, y: 0.0, width: superSize.width - 10, height: superSize.height)
+    }
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonSetup()
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonSetup()
+    }
+    
+    func commonSetup() {
+        backgroundColor = UIColor.white
+        nameLabel.textAlignment = .center
+        nameLabel.font = UIFont.systemFont(ofSize: 17)
+        nameLabel.backgroundColor = UIColor.green
+        addSubview(nameLabel)
+    }
     
     var hasText: Bool{
         return true
@@ -55,3 +74,6 @@ class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
         return true
     }
 }
+
+
+

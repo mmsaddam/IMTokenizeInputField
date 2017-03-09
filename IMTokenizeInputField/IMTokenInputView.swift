@@ -15,17 +15,30 @@ import UIKit
     
 }
 
-class IMTokenInputView: UIView {
+protocol IMTokenInutViewProtocol {
+    var tokens: [Token] { get }
+}
 
-    @IBOutlet weak var collectionView: UICollectionView!
+class IMTokenInputView: UIView, IMTokenInutViewProtocol {
+    
+    var collectionView: UICollectionView!
+    
     @IBInspectable var padding: (leading: CGFloat,tralling: CGFloat) = (leading: 10.0, tralling: 10.0)
     
-    var allTokens: [Token] = []
+    fileprivate var allTokens: [Token] = []
+    
+    var tokens: [Token] {
+        return self.allTokens
+    }
+    
     var delegate: IMTokenInputViewDelegate?
     
     override func awakeFromNib() {
-        collectionView?.delegate = self
-        collectionView?.dataSource = self
+        collectionView.register(TokenCell.self,         forCellWithReuseIdentifier: TokenCell.indentifier)
+        collectionView.backgroundColor = UIColor.blue
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.reloadData()
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,27 +49,60 @@ class IMTokenInputView: UIView {
         super.init(coder: aDecoder)
         commonInit()
     }
+    
+    override func layoutSubviews() {
+        collectionView.frame = bounds
+    }
+    
     func commonInit() {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 0.0
+        layout.minimumLineSpacing = 0.0
+        layout.estimatedItemSize = CGSize.zero
+        layout.scrollDirection = .horizontal
+        collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
+        addSubview(collectionView)
+        
         allTokens = [
-            Token(name: "Hello", id: NSDate()), Token(name: "Hello", id: NSDate()), Token(name: "Hello world", id: NSDate()), Token(name: "Hello", id: NSDate())
+            Token(name: "Hello 1", id: NSDate()), Token(name: "Hello 2", id: NSDate()), Token(name: "Hello world 1", id: NSDate()), Token(name: "Hello 3", id: NSDate()), Token(name: "Hello 1", id: NSDate()), Token(name: "Hello 2", id: NSDate()), Token(name: "Hello world 1", id: NSDate()), Token(name: "Hello 3", id: NSDate())
         ]
     }
     
-    func addToken(_ token: Token) -> Bool {
+    //---------------------------------------------------
+    // MARK: - Public Method
+    //---------------------------------------------------
+
+    public func tokenInputView(addToken token:Token) {
+        if addToken(token) {
+            // TODO: - Scroll to new item
+            collectionView.reloadData()
+            delegate?.tokenInputView(self, didAdd: token)
+        }
+    }
+    
+    public func tokenInputView(remove token:Token) {
+        if removeToken(token) {
+            collectionView.reloadData()
+            delegate?.tokenInputView(self, didRemove: token)
+        }
+    }
+    
+    
+    //---------------------------------------------------
+    // MARK: - Private Method
+    //---------------------------------------------------
+    
+    fileprivate func addToken(_ token: Token) -> Bool {
         if allTokens.contains(token) {
             print("Already Added....")
             return false
         } else {
             allTokens.append(contentsOf: [token])
-            
-            // TODO: - Scroll to new item
-            collectionView.reloadData()
-            delegate?.tokenInputView(self, didAdd: token)
             return true
         }
     }
     
-    func removeToken(_ token: Token) -> Bool {
+    fileprivate func removeToken(_ token: Token) -> Bool {
         let isRemoved = allTokens.removeObject(obj: token)
         if isRemoved {
             delegate?.tokenInputView(self, didRemove: token)
