@@ -8,11 +8,28 @@
 
 import UIKit
 
-class TokenCell: UICollectionViewCell, UIKeyInput {
+protocol TokenCellDelegate {
+    func willRemove(_ cell: TokenCell)
+}
+
+protocol TokenCellDecorable {
+    var token: Token? { get set}
+}
+
+class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
     
     @IBOutlet weak var nameLabel: UILabel!
     
     static let indentifier = "TokenCell"
+    
+    var delegate: TokenCellDelegate?
+    
+    var token: Token?
+    
+    override func awakeFromNib() {
+        
+    }
+    
     
     var hasText: Bool{
         return true
@@ -23,7 +40,7 @@ class TokenCell: UICollectionViewCell, UIKeyInput {
     }
     
     func deleteBackward() {
-        
+        delegate?.willRemove(self)
     }
     
     override func resignFirstResponder() -> Bool {

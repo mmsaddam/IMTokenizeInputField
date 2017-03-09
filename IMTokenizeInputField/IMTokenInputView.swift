@@ -8,15 +8,24 @@
 
 import UIKit
 
+ protocol IMTokenInputViewDelegate {
+    func tokenInputView(_ tokenInputView: IMTokenInputView, didSelect token: Token)
+    func tokenInputView(_ tokenInputView: IMTokenInputView, didAdd token: Token)
+    func tokenInputView(_ tokenInputView: IMTokenInputView, didRemove token: Token)
+    
+}
+
 class IMTokenInputView: UIView {
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBInspectable var padding: (leading: CGFloat,tralling: CGFloat) = (leading: 10.0, tralling: 10.0)
     
-    var allItems = [String]()
+    var allTokens: [Token] = []
+    var delegate: IMTokenInputViewDelegate?
     
     override func awakeFromNib() {
         collectionView?.delegate = self
-        collectionView.dataSource = self
+        collectionView?.dataSource = self
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,10 +37,61 @@ class IMTokenInputView: UIView {
         commonInit()
     }
     func commonInit() {
-    
+        allTokens = [
+            Token(name: "Hello", id: NSDate()), Token(name: "Hello", id: NSDate()), Token(name: "Hello world", id: NSDate()), Token(name: "Hello", id: NSDate())
+        ]
     }
-   
+    
+    func addToken(_ token: Token) -> Bool {
+        if allTokens.contains(token) {
+            print("Already Added....")
+            return false
+        } else {
+            allTokens.append(contentsOf: [token])
+            
+            // TODO: - Scroll to new item
+            collectionView.reloadData()
+            delegate?.tokenInputView(self, didAdd: token)
+            return true
+        }
+    }
+    
+    func removeToken(_ token: Token) -> Bool {
+        let isRemoved = allTokens.removeObject(obj: token)
+        if isRemoved {
+            delegate?.tokenInputView(self, didRemove: token)
+        }
+        return isRemoved
+    }
 }
+
+extension IMTokenInputView: TokenCellDelegate {
+    func willRemove(_ cell: TokenCell) {
+        if let token = cell.token {
+            if removeToken(token) {
+                collectionView?.reloadData()
+            }
+        }
+    }
+}
+
+//---------------------------------------------------
+// MARK: - FlowLayout Delegate
+//---------------------------------------------------
+
+extension IMTokenInputView: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let tokenString = allTokens[indexPath.section].name as NSString
+        
+        let size: CGSize = tokenString.size(attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 19)])
+        
+        return CGSize(width: size.width + padding.leading + padding.tralling, height: size.height)
+    }
+}
+
+
 
 //---------------------------------------------------
 // MARK: - CollectionView Datasource
@@ -46,7 +106,7 @@ extension IMTokenInputView: UICollectionViewDataSource {
      */
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return items.count
+        return allTokens.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -55,7 +115,9 @@ extension IMTokenInputView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TokenCell.indentifier, for: indexPath) as! TokenCell
-        cell.nameLabel.text = items[indexPath.section]
+        cell.token = allTokens[indexPath.section]
+        cell.delegate = self
+        cell.nameLabel.text = allTokens[indexPath.section].name
         cell.nameLabel.sizeToFit()
         cell.nameLabel.superview?.sizeToFit()
         return cell

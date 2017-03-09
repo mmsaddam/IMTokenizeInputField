@@ -16,8 +16,7 @@ struct Token {
 extension Token: Equatable {}
 
 func ==(lhs: Token, rhs: Token) -> Bool{
-    guard let lhsid = lhs.id, let rhsid = rhs.id else { return false }
-    return lhs.name == rhs.name && lhsid === rhsid
+    return lhs.name == rhs.name && lhs.id === rhs.id
 }
 
 func isEqual<T: Equatable>(type: T.Type, a: Any, b: Any) -> Bool {
