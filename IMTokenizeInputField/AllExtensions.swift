@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension Array where Element: Equatable{
     mutating func removeObject( obj: Element) -> Bool{
@@ -15,5 +16,11 @@ extension Array where Element: Equatable{
             return true
         }
         return false
+    }
+}
+
+extension String {
+    func getSize(font: UIFont) -> CGSize {
+        return (self as NSString).size(attributes: [NSFontAttributeName : font])
     }
 }

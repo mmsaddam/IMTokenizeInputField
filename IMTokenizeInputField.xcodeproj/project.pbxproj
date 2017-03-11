@@ -10,6 +10,9 @@
 		41C703C71E71C3400012D66F /* IMToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C703C61E71C3400012D66F /* IMToken.swift */; };
 		41C703C91E71CAEA0012D66F /* IMTokenInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C703C81E71CAEA0012D66F /* IMTokenInputView.swift */; };
 		41C703CD1E71D4930012D66F /* AllExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C703CC1E71D4930012D66F /* AllExtensions.swift */; };
+		41C703CF1E73015D0012D66F /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C703CE1E73015D0012D66F /* Utility.swift */; };
+		41C703D11E73077C0012D66F /* TokenTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C703D01E73077C0012D66F /* TokenTextField.swift */; };
+		41C703D31E7333A00012D66F /* CustomFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C703D21E7333A00012D66F /* CustomFlowLayout.swift */; };
 		41F7CE501E70E2E800F6ADC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F7CE4F1E70E2E800F6ADC8 /* AppDelegate.swift */; };
 		41F7CE521E70E2E800F6ADC8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F7CE511E70E2E800F6ADC8 /* ViewController.swift */; };
 		41F7CE551E70E2E800F6ADC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41F7CE531E70E2E800F6ADC8 /* Main.storyboard */; };
@@ -22,6 +25,9 @@
 		41C703C61E71C3400012D66F /* IMToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMToken.swift; sourceTree = "<group>"; };
 		41C703C81E71CAEA0012D66F /* IMTokenInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMTokenInputView.swift; sourceTree = "<group>"; };
 		41C703CC1E71D4930012D66F /* AllExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllExtensions.swift; sourceTree = "<group>"; };
+		41C703CE1E73015D0012D66F /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		41C703D01E73077C0012D66F /* TokenTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenTextField.swift; sourceTree = "<group>"; };
+		41C703D21E7333A00012D66F /* CustomFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFlowLayout.swift; sourceTree = "<group>"; };
 		41F7CE4C1E70E2E800F6ADC8 /* IMTokenizeInputField.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IMTokenizeInputField.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41F7CE4F1E70E2E800F6ADC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41F7CE511E70E2E800F6ADC8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +72,9 @@
 				41F7CE511E70E2E800F6ADC8 /* ViewController.swift */,
 				41F7CE611E70E6EF00F6ADC8 /* TokenCell.swift */,
 				41C703C81E71CAEA0012D66F /* IMTokenInputView.swift */,
+				41C703D21E7333A00012D66F /* CustomFlowLayout.swift */,
+				41C703CE1E73015D0012D66F /* Utility.swift */,
+				41C703D01E73077C0012D66F /* TokenTextField.swift */,
 				41C703CC1E71D4930012D66F /* AllExtensions.swift */,
 				41C703C61E71C3400012D66F /* IMToken.swift */,
 				41F7CE531E70E2E800F6ADC8 /* Main.storyboard */,
@@ -149,11 +158,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41C703CF1E73015D0012D66F /* Utility.swift in Sources */,
+				41C703D11E73077C0012D66F /* TokenTextField.swift in Sources */,
 				41C703C91E71CAEA0012D66F /* IMTokenInputView.swift in Sources */,
 				41F7CE621E70E6EF00F6ADC8 /* TokenCell.swift in Sources */,
 				41F7CE521E70E2E800F6ADC8 /* ViewController.swift in Sources */,
 				41C703CD1E71D4930012D66F /* AllExtensions.swift in Sources */,
 				41F7CE501E70E2E800F6ADC8 /* AppDelegate.swift in Sources */,
+				41C703D31E7333A00012D66F /* CustomFlowLayout.swift in Sources */,
 				41C703C71E71C3400012D66F /* IMToken.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

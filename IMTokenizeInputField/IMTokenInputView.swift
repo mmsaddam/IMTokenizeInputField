@@ -23,19 +23,35 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
     
     var collectionView: UICollectionView!
     
-    @IBInspectable var padding: (leading: CGFloat,tralling: CGFloat) = (leading: 10.0, tralling: 10.0)
+    private var minTokenHeight: CGFloat = 40
+    
+    var defaultFont: UIFont = UIFont.systemFont(ofSize: 17)
+    
+   // let demoCellSize = CGSize(width: 60, height: 40)
+    
+    var tokenHeight: CGFloat = 40.0 {
+        didSet {
+            if tokenHeight < minTokenHeight {
+                tokenHeight = minTokenHeight
+            }
+        }
+    }
+    
+    
+    @IBInspectable var tokenContentInset: UIEdgeInsets = UIEdgeInsets(top: 5.0, left: 7.0, bottom: 5.0, right: 7.0)
+    @IBInspectable var tokenFont: UIFont = UIFont.systemFont(ofSize: 17)
     
     fileprivate var allTokens: [Token] = []
     
     var tokens: [Token] {
         return self.allTokens
     }
-    
+    var selectedCell: TokenCell?
     var delegate: IMTokenInputViewDelegate?
     
     override func awakeFromNib() {
         collectionView.register(TokenCell.self,         forCellWithReuseIdentifier: TokenCell.indentifier)
-        collectionView.backgroundColor = UIColor.blue
+        collectionView.backgroundColor = Utils.Color.collectionViewBgColor
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.reloadData()
@@ -51,18 +67,18 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
     }
     
     override func layoutSubviews() {
-        collectionView.frame = bounds
     }
     
     func commonInit() {
+        backgroundColor = UIColor.black
         let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 0.0
-        layout.minimumLineSpacing = 0.0
-        layout.estimatedItemSize = CGSize.zero
+        layout.minimumInteritemSpacing = 5.0
         layout.scrollDirection = .horizontal
-        collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
-        addSubview(collectionView)
         
+        collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
+        
+        addSubview(collectionView)
+ 
         allTokens = [
             Token(name: "Hello 1", id: NSDate()), Token(name: "Hello 2", id: NSDate()), Token(name: "Hello world 1", id: NSDate()), Token(name: "Hello 3", id: NSDate()), Token(name: "Hello 1", id: NSDate()), Token(name: "Hello 2", id: NSDate()), Token(name: "Hello world 1", id: NSDate()), Token(name: "Hello 3", id: NSDate())
         ]
@@ -91,6 +107,13 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
     //---------------------------------------------------
     // MARK: - Private Method
     //---------------------------------------------------
+    
+    func isLastItem(for indexPath: IndexPath) -> Bool {
+        let totalSections = collectionView.numberOfSections
+        let totalItemInSection = collectionView.numberOfItems(inSection: totalSections - 1)
+        return (indexPath.item == (totalItemInSection - 1) )
+            && (totalSections - 1) == indexPath.section
+    }
     
     fileprivate func addToken(_ token: Token) -> Bool {
         if allTokens.contains(token) {
@@ -128,15 +151,51 @@ extension IMTokenInputView: TokenCellDelegate {
 extension IMTokenInputView: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let tokenString = allTokens[indexPath.section].name as NSString
-        
-        let size: CGSize = tokenString.size(attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 19)])
-        
-        return CGSize(width: size.width + padding.leading + padding.tralling, height: size.height)
+        if isLastItem(for: indexPath) {
+           return calculateCellSize(atIndexPath: indexPath)
+        }
+        return calculateCellSize(for: allTokens[indexPath.item].name, atIndexPath: indexPath)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets{
+        
+        let colVHeight = self.collectionView.frame.size.height
+        let topInset = (colVHeight - tokenHeight) / 2
+        let bottomInset = topInset
+        
+        return UIEdgeInsets(top: topInset, left: 0, bottom: bottomInset, right: 0)
+    }
+    
+    
 }
 
+extension IMTokenInputView {
+    
+    func calculateCellSize(for tokenStr: String = "", atIndexPath indexPath: IndexPath) -> CGSize {
+        
+        let totalVInset = tokenContentInset.top + tokenContentInset.bottom
+        let totalHInset = tokenContentInset.left + tokenContentInset.right
+        
+        
+        var strSize = tokenStr.getSize(font: tokenFont)
+        
+        if (strSize.height > (tokenHeight - totalVInset)) {
+            strSize = tokenStr.getSize(font: defaultFont)
+        }
+        
+        var cellWidth: CGFloat = 0.0
+        
+        if isLastItem(for: indexPath) {
+            cellWidth = 150.0
+        } else {
+            cellWidth = strSize.width + totalHInset
+        }
+        
+        return CGSize(width: cellWidth, height: tokenHeight)
+        
+    }
+    
+}
 
 
 //---------------------------------------------------
@@ -152,33 +211,96 @@ extension IMTokenInputView: UICollectionViewDataSource {
      */
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return allTokens.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
     }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1 + allTokens.count
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TokenCell.indentifier, for: indexPath) as! TokenCell
-        cell.token = allTokens[indexPath.section]
+        
+        cell.textField.font = tokenFont
+        cell.contentInset = tokenContentInset
         cell.delegate = self
-        cell.nameLabel.text = allTokens[indexPath.section].name
-        cell.nameLabel.sizeToFit()
-        cell.nameLabel.superview?.sizeToFit()
-        return cell
+        
+        if isLastItem(for: indexPath) {
+            cell.textField.isUserInteractionEnabled = true
+            cell.textField.text = ""
+            cell.textField.delegate = self
+            cell.textField.backwardDelegate = self
+            cell.textField.textAlignment = .left
+            return cell
+        } else {
+            cell.token = allTokens[indexPath.item]
+            cell.textField.text = allTokens[indexPath.item].name
+            cell.textField.textAlignment = .center
+            return cell
+
+        }
+        
     }
+   
     
 }
 
+extension IMTokenInputView: UITextFieldDelegate, IMDeleteBackwardDetectingTextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        endEditing(true)
+        return true
+    }
+    
+    
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        code
+//    }
+    
+    func textFieldDeleteBackward(_ textField: TokenTextField) {
+        let indexPath = IndexPath(item: allTokens.count, section: 0)
+        collectionView(collectionView, didSelectItemAt: indexPath)
+    }
+    
+    
+}
+
+
 extension IMTokenInputView: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as? TokenCell
-        if cell?.isFirstResponder ?? false {
-            _ = cell?.resignFirstResponder()
-        } else {
-            _ = cell?.becomeFirstResponder()
+        
+        var targetIndexPath: IndexPath = indexPath
+        
+        if isLastItem(for: indexPath) {
+            targetIndexPath =  IndexPath(item: indexPath.item - 1, section: indexPath.section)
+           
         }
+        
+        guard let cell: TokenCell = collectionView.cellForItem(at: targetIndexPath) as? TokenCell else {
+            return
+        }
+
+        if cell.tokenIsSelected {
+            cell.tokenIsSelected = false
+            selectedCell = nil
+            _ = cell.resignFirstResponder()
+
+        } else {
+            selectedCell?.tokenIsSelected = false
+            cell.tokenIsSelected = true
+            selectedCell = cell
+            _ = cell.becomeFirstResponder()
+        }
+
     }
 }
 

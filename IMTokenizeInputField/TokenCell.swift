@@ -18,20 +18,44 @@ protocol TokenCellDecorable {
 
 class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
     
-    var nameLabel = UILabel()
-    
+    var textField: TokenTextField = TokenTextField()
     static let indentifier = "TokenCell"
     
     var delegate: TokenCellDelegate?
-    
     var token: Token?
+    let cornerRadius = 4.0
+    
+    var contentInset: UIEdgeInsets = UIEdgeInsets.zero {
+        didSet{
+            updateCorners()
+            layoutIfNeeded()
+        }
+    }
+    
+    var tokenIsSelected = false {
+        didSet{
+            backgroundColor = tokenIsSelected ? Utils.Color.tokenSelectedColor : Utils.Color.CellBgColor
+        }
+    }
     
     override func awakeFromNib() {
+        
     }
+    
+    override func layoutIfNeeded() {
+        super.layoutIfNeeded()
+    }
+    
     override func layoutSubviews() {
-        let superSize = self.frame.size
-        nameLabel.frame = CGRect(x: 5.0, y: 0.0, width: superSize.width - 10, height: superSize.height)
+        super.layoutIfNeeded()
+        textField.frame = CGRect(x: contentInset.left, y: contentInset.top, width: bounds.size.width - (contentInset.left + contentInset.right), height: bounds.size.height - (contentInset.top + contentInset.bottom))
+//        NSLayoutConstraint(item: textField, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leadingMargin, multiplier: 1.0, constant: 5.0).isActive = true
+//        NSLayoutConstraint(item: textField, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailingMargin, multiplier: 1.0, constant: 5.0).isActive = true
+//        NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: self, attribute: .topMargin, multiplier: 1.0, constant: 5.0).isActive = true
+//        NSLayoutConstraint(item: textField, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottomMargin, multiplier: 1.0, constant: 5.0).isActive = true
+       
     }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonSetup()
@@ -43,12 +67,21 @@ class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
     }
     
     func commonSetup() {
-        backgroundColor = UIColor.white
-        nameLabel.textAlignment = .center
-        nameLabel.font = UIFont.systemFont(ofSize: 17)
-        nameLabel.backgroundColor = UIColor.green
-        addSubview(nameLabel)
+        backgroundColor = Utils.Color.CellBgColor
+        addSubview(textField)
+
     }
+    func updateCorners() {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        self.layer.mask = mask
+        setNeedsLayout()
+    }
+    
+    //---------------------------------------------------
+    // MARK: - UIKeyInput Override Method
+    //---------------------------------------------------
     
     var hasText: Bool{
         return true
@@ -59,7 +92,8 @@ class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
     }
     
     func deleteBackward() {
-        delegate?.willRemove(self)
+        
+       // delegate?.willRemove(self)
     }
     
     override func resignFirstResponder() -> Bool {
