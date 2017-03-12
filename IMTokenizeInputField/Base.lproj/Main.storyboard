@@ -22,10 +22,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j8Q-aO-Vkd" customClass="IMTokenInputView" customModule="IMTokenizeInputField" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="375" height="200"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="50"/>
                                 <color key="backgroundColor" red="0.23040400137422182" green="0.28878675215999544" blue="0.72336632013320923" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="NFR-0c-nYw"/>
+                                    <constraint firstAttribute="height" constant="50" id="NFR-0c-nYw"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="tokenHeight">
@@ -33,16 +33,39 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wyT-LN-Pnw">
+                                <rect key="frame" x="0.0" y="114" width="375" height="553"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" id="dh2-eZ-gU0">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dh2-eZ-gU0" id="KEJ-nr-vfm">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="UgU-4O-ljg"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="HSD-0I-sko"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="wyT-LN-Pnw" secondAttribute="bottom" id="16P-JQ-axJ"/>
                             <constraint firstAttribute="trailing" secondItem="j8Q-aO-Vkd" secondAttribute="trailing" id="2NM-6s-LXd"/>
+                            <constraint firstItem="wyT-LN-Pnw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Agy-Sa-Zi5"/>
                             <constraint firstItem="j8Q-aO-Vkd" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="RLy-Y7-Gnd"/>
                             <constraint firstItem="j8Q-aO-Vkd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="UuP-S1-NFF"/>
+                            <constraint firstItem="wyT-LN-Pnw" firstAttribute="top" secondItem="j8Q-aO-Vkd" secondAttribute="bottom" id="h4l-EA-ilS"/>
+                            <constraint firstAttribute="trailing" secondItem="wyT-LN-Pnw" secondAttribute="trailing" id="wLN-9w-VOh"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="h3t-AJ-y61"/>
                     <connections>
+                        <outlet property="tableView" destination="wyT-LN-Pnw" id="1me-h3-4fF"/>
                         <outlet property="tokenInputView" destination="j8Q-aO-Vkd" id="gX0-Fq-bMZ"/>
                     </connections>
                 </viewController>

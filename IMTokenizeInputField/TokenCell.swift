@@ -49,11 +49,6 @@ class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
     override func layoutSubviews() {
         super.layoutIfNeeded()
         textField.frame = CGRect(x: contentInset.left, y: contentInset.top, width: bounds.size.width - (contentInset.left + contentInset.right), height: bounds.size.height - (contentInset.top + contentInset.bottom))
-//        NSLayoutConstraint(item: textField, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leadingMargin, multiplier: 1.0, constant: 5.0).isActive = true
-//        NSLayoutConstraint(item: textField, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailingMargin, multiplier: 1.0, constant: 5.0).isActive = true
-//        NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: self, attribute: .topMargin, multiplier: 1.0, constant: 5.0).isActive = true
-//        NSLayoutConstraint(item: textField, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottomMargin, multiplier: 1.0, constant: 5.0).isActive = true
-       
     }
     
     override init(frame: CGRect) {
@@ -84,7 +79,7 @@ class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
     //---------------------------------------------------
     
     var hasText: Bool{
-        return true
+        return false
     }
     
     func insertText(_ text: String) {
@@ -92,8 +87,7 @@ class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
     }
     
     func deleteBackward() {
-        
-       // delegate?.willRemove(self)
+        delegate?.willRemove(self)
     }
     
     override func resignFirstResponder() -> Bool {

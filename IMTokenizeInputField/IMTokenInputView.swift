@@ -12,7 +12,9 @@ import UIKit
     func tokenInputView(_ tokenInputView: IMTokenInputView, didSelect token: Token)
     func tokenInputView(_ tokenInputView: IMTokenInputView, didAdd token: Token)
     func tokenInputView(_ tokenInputView: IMTokenInputView, didRemove token: Token)
-    
+    func tokenInputViewDidBeginEditing(_ tokenInputView: IMTokenInputView)
+    func tokenInputViewDidEndEditing(_ tokenInputView: IMTokenInputView)
+    func tokenInputView(_ tokenInputView: IMTokenInputView, didChangeText text : String)
 }
 
 protocol IMTokenInutViewProtocol {
@@ -24,10 +26,7 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
     var collectionView: UICollectionView!
     
     private var minTokenHeight: CGFloat = 40
-    
     var defaultFont: UIFont = UIFont.systemFont(ofSize: 17)
-    
-   // let demoCellSize = CGSize(width: 60, height: 40)
     
     var tokenHeight: CGFloat = 40.0 {
         didSet {
@@ -37,8 +36,8 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
         }
     }
     
-    
     @IBInspectable var tokenContentInset: UIEdgeInsets = UIEdgeInsets(top: 5.0, left: 7.0, bottom: 5.0, right: 7.0)
+    
     @IBInspectable var tokenFont: UIFont = UIFont.systemFont(ofSize: 17)
     
     fileprivate var allTokens: [Token] = []
@@ -79,9 +78,6 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
         
         addSubview(collectionView)
  
-        allTokens = [
-            Token(name: "Hello 1", id: NSDate()), Token(name: "Hello 2", id: NSDate()), Token(name: "Hello world 1", id: NSDate()), Token(name: "Hello 3", id: NSDate()), Token(name: "Hello 1", id: NSDate()), Token(name: "Hello 2", id: NSDate()), Token(name: "Hello world 1", id: NSDate()), Token(name: "Hello 3", id: NSDate())
-        ]
     }
     
     //---------------------------------------------------
@@ -92,6 +88,7 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
         if addToken(token) {
             // TODO: - Scroll to new item
             collectionView.reloadData()
+
             delegate?.tokenInputView(self, didAdd: token)
         }
     }
@@ -132,6 +129,8 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
         }
         return isRemoved
     }
+    
+    
 }
 
 extension IMTokenInputView: TokenCellDelegate {
@@ -163,11 +162,13 @@ extension IMTokenInputView: UICollectionViewDelegateFlowLayout {
         let topInset = (colVHeight - tokenHeight) / 2
         let bottomInset = topInset
         
-        return UIEdgeInsets(top: topInset, left: 0, bottom: bottomInset, right: 0)
+        return UIEdgeInsets(top: topInset, left: tokenContentInset.left, bottom: bottomInset, right: tokenContentInset.right)
     }
     
     
 }
+
+// MARK: - IMTokenInputView Extension
 
 extension IMTokenInputView {
     
@@ -198,9 +199,7 @@ extension IMTokenInputView {
 }
 
 
-//---------------------------------------------------
 // MARK: - CollectionView Datasource
-//---------------------------------------------------
 
 extension IMTokenInputView: UICollectionViewDataSource {
     
@@ -226,10 +225,13 @@ extension IMTokenInputView: UICollectionViewDataSource {
         cell.contentInset = tokenContentInset
         cell.delegate = self
         
+        cell.textField.isUserInteractionEnabled = false
+
         if isLastItem(for: indexPath) {
             cell.textField.isUserInteractionEnabled = true
             cell.textField.text = ""
             cell.textField.delegate = self
+            cell.textField.addTarget(self, action: #selector(IMTokenInputView.onTextFieldDidChange(_:)), for: .editingChanged)
             cell.textField.backwardDelegate = self
             cell.textField.textAlignment = .left
             return cell
@@ -243,8 +245,9 @@ extension IMTokenInputView: UICollectionViewDataSource {
         
     }
    
-    
 }
+
+// MARK: - UITextField Delegate
 
 extension IMTokenInputView: UITextFieldDelegate, IMDeleteBackwardDetectingTextFieldDelegate {
     
@@ -260,30 +263,39 @@ extension IMTokenInputView: UITextFieldDelegate, IMDeleteBackwardDetectingTextFi
         endEditing(true)
         return true
     }
-    
-    
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        code
-//    }
-    
+   
     func textFieldDeleteBackward(_ textField: TokenTextField) {
-        let indexPath = IndexPath(item: allTokens.count, section: 0)
-        collectionView(collectionView, didSelectItemAt: indexPath)
+       
+        if allTokens.count > 0 {
+             let indexPath = IndexPath(item: allTokens.count - 1, section: 0)
+            guard let cell: TokenCell = collectionView.cellForItem(at: indexPath) as? TokenCell else {
+                return
+            }
+            if cell.tokenIsSelected {
+               _ = cell.becomeFirstResponder()
+                return
+            } else {
+                selectedCell?.tokenIsSelected = false
+                cell.tokenIsSelected = true
+                selectedCell = cell
+                _ = cell.becomeFirstResponder()
+            }
+        }
+      
     }
     
+    func onTextFieldDidChange(_ textField: UITextField) {
+        delegate?.tokenInputView(self, didChangeText: textField.text ?? "")
+    }
     
 }
 
+// MARK: - UICollectionView Delegate
 
 extension IMTokenInputView: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        var targetIndexPath: IndexPath = indexPath
-        
-        if isLastItem(for: indexPath) {
-            targetIndexPath =  IndexPath(item: indexPath.item - 1, section: indexPath.section)
-           
-        }
+        let targetIndexPath: IndexPath = indexPath
         
         guard let cell: TokenCell = collectionView.cellForItem(at: targetIndexPath) as? TokenCell else {
             return
