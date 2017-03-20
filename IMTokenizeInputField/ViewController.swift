@@ -21,7 +21,7 @@ class ViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		//tokenInputView.tokenHeight = 40.0
+		tokenInputView.tokenHeight = 40.0
 		self.automaticallyAdjustsScrollViewInsets = false
 		
 		tokenInputView.delegate = self

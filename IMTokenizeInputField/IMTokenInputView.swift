@@ -315,6 +315,10 @@ extension IMTokenInputView: UICollectionViewDelegate{
         
         let targetIndexPath: IndexPath = indexPath
         
+        if isLastItem(for: targetIndexPath) {
+            return
+        }
+        
         guard let cell: TokenCell = collectionView.cellForItem(at: targetIndexPath) as? TokenCell else {
             return
         }

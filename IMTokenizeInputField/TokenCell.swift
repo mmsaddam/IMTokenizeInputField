@@ -22,7 +22,6 @@ class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
     static let indentifier = "TokenCell"
 	static let lastIndentifier = "LastTokenCell"
 
-	
     var delegate: TokenCellDelegate?
     var token: Token?
     let cornerRadius = 4.0
