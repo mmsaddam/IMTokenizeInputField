@@ -24,3 +24,5 @@ extension String {
         return (self as NSString).size(attributes: [NSFontAttributeName : font])
     }
 }
+
+

@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 class Utils {
-    
     struct Color {
         static let collectionViewBgColor = UIColor.blue
         static let CellBgColor =  UIColor.gray

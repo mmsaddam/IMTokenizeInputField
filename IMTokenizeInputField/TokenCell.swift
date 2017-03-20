@@ -20,7 +20,9 @@ class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
     
     var textField: TokenTextField = TokenTextField()
     static let indentifier = "TokenCell"
-    
+	static let lastIndentifier = "LastTokenCell"
+
+	
     var delegate: TokenCellDelegate?
     var token: Token?
     let cornerRadius = 4.0

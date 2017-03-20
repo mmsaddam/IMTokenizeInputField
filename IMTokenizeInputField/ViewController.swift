@@ -9,36 +9,34 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var tokenInputView: IMTokenInputView!
-    // MARK:- Properties
-    var names:[String] = []
-    var filteredNames:[String] = []
-    var selectedNames:[String] = []
-
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tokenInputView.tokenHeight = 40.0
-        self.automaticallyAdjustsScrollViewInsets = false
-        tokenInputView.delegate = self
-        
-        names.append(contentsOf: [
-            "Robert La Ferla",
-            "Brenden Mulligan",
-            "Cluster Labs, Inc.",
-            "Pat Fives",
-            "Rizwan Sattar",
-            "Taylor Hughes"])
-
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+	
+	@IBOutlet weak var tableView: UITableView!
+	@IBOutlet weak var tokenInputView: IMTokenInputView!
+	
+	// MARK:- Properties
+	var names:[String] = []
+	var filteredNames:[String] = []
+	var selectedNames:[String] = []
+	
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		//tokenInputView.tokenHeight = 40.0
+		self.automaticallyAdjustsScrollViewInsets = false
+		
+		tokenInputView.delegate = self
+		
+		for i in 0..<99 {
+			names.append("item number \(i)")
+		}
+		
+	}
+	
+	override func didReceiveMemoryWarning() {
+		super.didReceiveMemoryWarning()
+		// Dispose of any resources that can be recreated.
+	}
+	
 }
 extension ViewController: IMTokenInputViewDelegate {
     func tokenInputViewDidBeginEditing(_ tokenInputView: IMTokenInputView) {
