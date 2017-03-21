@@ -11,11 +11,11 @@ import UIKit
 
 class Utils {
     struct Color {
-        static let collectionViewBgColor = UIColor.blue
+        static let collectionViewBgColor = UIColor.green
         static let CellBgColor =  UIColor.gray
         static let textFieldBgColor = UIColor.clear
         static let tokenBgColor = UIColor.clear
-        static let tokenSelectedColor = UIColor.red
+        static let tokenSelectedColor = UIColor.blue
         static let tokenTextColor = UIColor.white
     }
     

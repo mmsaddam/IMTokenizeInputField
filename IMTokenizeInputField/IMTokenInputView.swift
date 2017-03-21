@@ -9,6 +9,7 @@
 import UIKit
 
 protocol IMTokenInputViewDelegate {
+	
 	func tokenInputView(_ tokenInputView: IMTokenInputView, didSelect token: Token)
 	func tokenInputView(_ tokenInputView: IMTokenInputView, didAdd token: Token)
 	func tokenInputView(_ tokenInputView: IMTokenInputView, didRemove token: Token)
@@ -50,7 +51,8 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
 	override func awakeFromNib() {
 		collectionView.register(TokenCell.self,         forCellWithReuseIdentifier: TokenCell.indentifier)
 		collectionView.register(TokenCell.self,         forCellWithReuseIdentifier: TokenCell.lastIndentifier)
-		collectionView.contentInset = UIEdgeInsets.zero
+		//collectionView.contentInset =
+			//UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 		collectionView.backgroundColor = Utils.Color.collectionViewBgColor
 		collectionView.delegate = self
 		collectionView.dataSource = self
@@ -73,8 +75,25 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
 	func commonInit() {
 		let layout = CustomFlowLayout()
 		collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
-		
+		//collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
+		collectionView.bounces = true
+		collectionView.alwaysBounceHorizontal = true
 		addSubview(collectionView)
+		
+//		let left = NSLayoutConstraint(item: collectionView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leadingMargin, multiplier: 1.0, constant: 5)
+//		left.isActive = true
+//		addConstraints([left])
+//		let top = NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .topMargin, multiplier: 1.0, constant: 5)
+//		top.isActive = true
+//		addConstraints([top])
+//
+//		let bottom =  NSLayoutConstraint(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottomMargin, multiplier: 1.0, constant: 5)
+//		bottom.isActive = true
+//		addConstraints([bottom])
+//		
+//		let traling = NSLayoutConstraint(item: collectionView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailingMargin, multiplier: 1.0, constant: 5)
+//		traling.isActive = true
+//		addConstraints([traling])
 		
 	}
 	
@@ -83,6 +102,7 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
 	//---------------------------------------------------
 	
 	public func addToken(_ token:Token) {
+		
 		endEditing(true)
 
 		addTokenToArray(token) {[weak self] (isAdded) in
