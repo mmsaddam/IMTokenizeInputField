@@ -50,6 +50,7 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
 	override func awakeFromNib() {
 		collectionView.register(TokenCell.self,         forCellWithReuseIdentifier: TokenCell.indentifier)
 		collectionView.register(TokenCell.self,         forCellWithReuseIdentifier: TokenCell.lastIndentifier)
+		collectionView.contentInset = UIEdgeInsets.zero
 		collectionView.backgroundColor = Utils.Color.collectionViewBgColor
 		collectionView.delegate = self
 		collectionView.dataSource = self
@@ -81,24 +82,21 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
 	// MARK: - Public Method
 	//---------------------------------------------------
 	
-	public func tokenInputView(addToken token:Token) {
-		
-		let sections = collectionView.numberOfSections
-		let items = collectionView.numberOfItems(inSection: sections - 1)
-		let lastIndexPath = IndexPath(item: items - 1, section: sections - 1)
-		collectionView.scrollToItem(at: lastIndexPath, at: .top, animated: true)
-		
-		addToken(token) {[weak self] (isAdded) in
+	public func addToken(_ token:Token) {
+		endEditing(true)
+
+		addTokenToArray(token) {[weak self] (isAdded) in
 			if isAdded {
 				self?.collectionView.reloadData()
+				self?.scrollToLastItem()
 				self?.delegate?.tokenInputView(self!, didAdd: token)
 			}
 		}
 		
 	}
 	
-	public func tokenInputView(remove token:Token) {
-		removeToken(token) {[weak self] (isRemoved) in
+	public func removeToken(_ token:Token) {
+		removeTokenFromArray(token) {[weak self] (isRemoved) in
 			if isRemoved {
 				self?.collectionView.reloadData()
 				self?.delegate?.tokenInputView(self!, didRemove: token)
@@ -119,7 +117,16 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
 			&& (totalSections - 1) == indexPath.section
 	}
 	
-	fileprivate func addToken(_ token: Token, completion: ( Bool ) -> Void) {
+	func scrollToLastItem() {
+		
+		let sections = collectionView.numberOfSections
+		let items = collectionView.numberOfItems(inSection: sections - 1)
+		let lastIndexPath = IndexPath(item: items - 1, section: sections - 1)
+		collectionView.scrollToItem(at: lastIndexPath, at: .right, animated: true)
+		
+	}
+	
+	fileprivate func addTokenToArray(_ token: Token, completion: ( Bool ) -> Void) {
 		if allTokens.contains(token) {
 			print("Already Added....")
 			return completion(false)
@@ -129,12 +136,17 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
 		}
 	}
 	
-	fileprivate func removeToken(_ token: Token, completion: ( Bool ) -> Void) {
+	fileprivate func removeTokenFromArray(_ token: Token, completion: ( Bool ) -> Void) {
 		let isRemoved = allTokens.removeObject(obj: token)
 		completion(isRemoved)
-//		if isRemoved {
-//			delegate?.tokenInputView(self, didRemove: token)
-//		}
+	}
+	
+	fileprivate func removeItem(at indexPath: IndexPath) {
+
+		self.collectionView.performBatchUpdates({
+			self.collectionView.deleteItems(at: [indexPath])
+		}, completion: nil)
+
 	}
 	
  fileprivate func calculateCellSize(for tokenStr: String = "", atIndexPath indexPath: IndexPath) -> CGSize {
@@ -167,19 +179,23 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
 // MARK: TokenCell Delegate
 
 extension IMTokenInputView: TokenCellDelegate {
-    func willRemove(_ cell: TokenCell) {
-        if let token = cell.token {
-			removeToken(token, completion: {[weak self] (isRemoved) in
+	func willRemove(_ cell: TokenCell) {
+		if let token = cell.token {
+			removeTokenFromArray(token, completion: {[weak self] (isRemoved) in
 				if isRemoved {
-					let indexPath = self?.collectionView.indexPath(for: cell)
-					self?.collectionView.performBatchUpdates({
-						self?.collectionView.deleteItems(at: [indexPath!])
-					}, completion: nil)
+					
+					self?.selectedCell = nil
+					
+					if let indexPath = self?.collectionView.indexPath(for: cell) {
+						self?.removeItem(at: indexPath)
+					} else {
+						print("Path not found...")
+					}
 				}
 			})
 			
-        }
-    }
+		}
+	}
 }
 
 // MARK: - IMTokenInputView Extension
@@ -266,11 +282,11 @@ extension IMTokenInputView: UICollectionViewDataSource {
 		  cell = collectionView.dequeueReusableCell(withReuseIdentifier: TokenCell.indentifier, for: indexPath) as! TokenCell
 		cell.delegate = self
 		cell.token = allTokens[indexPath.item]
+		cell.tokenIsSelected = false
 		cell.textField.text = allTokens[indexPath.item].name
 		cell.textField.textAlignment = .center
 		
 	}
-	
 	
     cell.textField.font = tokenFont
     cell.contentInset = tokenContentInset
