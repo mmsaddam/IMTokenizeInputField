@@ -344,19 +344,33 @@ extension IMTokenInputView: UICollectionViewDelegate{
         guard let cell: TokenCell = collectionView.cellForItem(at: targetIndexPath) as? TokenCell else {
             return
         }
-		selectedCell?.tokenIsSelected = false
-		
-        if cell.tokenIsSelected {
-            cell.tokenIsSelected = false
-            selectedCell = nil
-          //  _ = cell.resignFirstResponder()
+        if selectedCell == cell {
+            cell.tokenIsSelected = !cell.tokenIsSelected
+            selectedCell = cell
 
         } else {
-            selectedCell?.tokenIsSelected = false
-            cell.tokenIsSelected = true
+            selectedCell?.tokenIsSelected = false // deselect current section because only one selection at a time
+            cell.tokenIsSelected = !cell.tokenIsSelected
             selectedCell = cell
-            _ = cell.becomeFirstResponder()
         }
+        
+        
+        
+        _ = cell.becomeFirstResponder()
+        
+//		selectedCell?.tokenIsSelected = false
+//		
+//        if cell.tokenIsSelected {
+//            cell.tokenIsSelected = false
+//            selectedCell = nil
+//            _ = cell.becomeFirstResponder()
+//
+//        } else {
+//            cell.tokenIsSelected = true
+//            selectedCell = cell
+//           // selectedCell?.tokenIsSelected = false
+//            _ = cell.becomeFirstResponder()
+//        }
 
     }
 }

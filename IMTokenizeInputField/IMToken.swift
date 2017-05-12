@@ -10,13 +10,23 @@ import Foundation
 
 struct Token {
     var name: String
-    var id: AnyObject?
+    fileprivate var id: Date!
+    var context: AnyObject?
+    init(name: String) {
+        self.name = name
+        id = Date()
+    }
+    init(name: String, context: AnyObject?) {
+        self.name = name
+        self.context = context
+        id = Date()
+    }
 }
 
 extension Token: Equatable {}
 
 func ==(lhs: Token, rhs: Token) -> Bool{
-    return lhs.name == rhs.name 
+    return lhs.id == rhs.id
 }
 
 func isEqual<T: Equatable>(type: T.Type, a: Any, b: Any) -> Bool {
