@@ -27,7 +27,8 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
 	// MARK: Properties
 
     fileprivate var collectionView: UICollectionView!
-	fileprivate var minTokenHeight: CGFloat = 40
+    fileprivate var layout:CustomFlowLayout = CustomFlowLayout()
+	fileprivate var minTokenHeight: CGFloat = 40.0
 	fileprivate var defaultFont: UIFont = UIFont.systemFont(ofSize: 17)
 	fileprivate var searchFieldWidth: CGFloat = 150
     fileprivate var collectionViewPadding: (left: CGFloat, right: CGFloat) = (left: 5.0, right: 5.0)
@@ -57,6 +58,7 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
 		collectionView.dataSource = self
 		collectionView.reloadData()
 	}
+    
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		commonInit()
@@ -75,12 +77,10 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
 	// MARK: Initial Setup
 
 	func commonInit() {
-		let layout = CustomFlowLayout()
-		collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
 		collectionView.bounces = true
 		collectionView.alwaysBounceHorizontal = true
 		addSubview(collectionView)
-		
 	}
 	
 	//---------------------------------------------------

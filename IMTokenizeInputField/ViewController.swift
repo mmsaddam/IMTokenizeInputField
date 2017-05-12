@@ -32,13 +32,11 @@ class ViewController: UIViewController {
 	}
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-       // tokenInputView?.layoutIfNeeded()
         
     }
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
 	}
 	
 }
@@ -55,6 +53,8 @@ extension ViewController: IMTokenInputViewDelegate {
     func tokenInputView(_ tokenInputView: IMTokenInputView, didAdd token: Token) {
         if !selectedNames.contains(token.name) {
             selectedNames.append(token.name)
+        } else {
+            
         }
     }
     func tokenInputView(_ tokenInputView: IMTokenInputView, didRemove token: Token) {
@@ -100,7 +100,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let name = filteredNames[indexPath.row]
-        let token = Token(name: name, id: nil)
+        let token = Token(name: name, id: NSDate())
         tokenInputView.addToken(token)
     }
 }
