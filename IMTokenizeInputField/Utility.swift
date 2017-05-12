@@ -11,7 +11,7 @@ import UIKit
 
 class Utils {
     struct Color {
-        static let collectionViewBgColor = UIColor.green
+        static let collectionViewBgColor = UIColor.lightText
         static let CellBgColor =  UIColor.gray
         static let textFieldBgColor = UIColor.clear
         static let tokenBgColor = UIColor.clear

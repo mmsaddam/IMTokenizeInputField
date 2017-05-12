@@ -23,7 +23,6 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 		tokenInputView.tokenHeight = 40.0
 		self.automaticallyAdjustsScrollViewInsets = false
-		
 		tokenInputView.delegate = self
 		
 		for i in 0..<99 {
@@ -31,6 +30,11 @@ class ViewController: UIViewController {
 		}
 		
 	}
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+       // tokenInputView?.layoutIfNeeded()
+        
+    }
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()

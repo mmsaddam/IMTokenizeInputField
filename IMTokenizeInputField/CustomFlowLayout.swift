@@ -9,6 +9,8 @@
 import UIKit
 
 class CustomFlowLayout: UICollectionViewFlowLayout {
+    
+    var scrollerDireciton: UICollectionViewScrollDirection = .horizontal
     override init() {
         super.init()
 		setup()
@@ -23,7 +25,7 @@ class CustomFlowLayout: UICollectionViewFlowLayout {
 	// MARK: Set up
 	func setup() {
 		minimumInteritemSpacing = 5.0
-		scrollDirection = .horizontal
+		scrollDirection = scrollerDireciton
         sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
 	}
 

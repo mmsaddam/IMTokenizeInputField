@@ -26,10 +26,11 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
 	
 	// MARK: Properties
 
- 	fileprivate var collectionView: UICollectionView!
+    fileprivate var collectionView: UICollectionView!
 	fileprivate var minTokenHeight: CGFloat = 40
 	fileprivate var defaultFont: UIFont = UIFont.systemFont(ofSize: 17)
 	fileprivate var searchFieldWidth: CGFloat = 150
+    fileprivate var collectionViewPadding: (left: CGFloat, right: CGFloat) = (left: 5.0, right: 5.0)
 	var tokenHeight: CGFloat = 40.0 {
 		didSet {
 			if tokenHeight < minTokenHeight {
@@ -49,10 +50,8 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
 	var delegate: IMTokenInputViewDelegate?
 	
 	override func awakeFromNib() {
-		collectionView.register(TokenCell.self,         forCellWithReuseIdentifier: TokenCell.indentifier)
-		collectionView.register(TokenCell.self,         forCellWithReuseIdentifier: TokenCell.lastIndentifier)
-		//collectionView.contentInset =
-			//UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+		collectionView.register(TokenCell.self, forCellWithReuseIdentifier: TokenCell.Identifier.common)
+		collectionView.register(TokenCell.self, forCellWithReuseIdentifier: TokenCell.Identifier.last)
 		collectionView.backgroundColor = Utils.Color.collectionViewBgColor
 		collectionView.delegate = self
 		collectionView.dataSource = self
@@ -67,33 +66,20 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
 		super.init(coder: aDecoder)
 		commonInit()
 	}
-	
+
 	override func layoutSubviews() {
+        super.layoutSubviews()
+        collectionView.frame = CGRect(x: collectionViewPadding.left, y: 0, width: bounds.width - (collectionViewPadding.left + collectionViewPadding.right), height: bounds.height)
 	}
+    
 	// MARK: Initial Setup
 
 	func commonInit() {
 		let layout = CustomFlowLayout()
 		collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
-		//collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
 		collectionView.bounces = true
 		collectionView.alwaysBounceHorizontal = true
 		addSubview(collectionView)
-		
-//		let left = NSLayoutConstraint(item: collectionView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leadingMargin, multiplier: 1.0, constant: 5)
-//		left.isActive = true
-//		addConstraints([left])
-//		let top = NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .topMargin, multiplier: 1.0, constant: 5)
-//		top.isActive = true
-//		addConstraints([top])
-//
-//		let bottom =  NSLayoutConstraint(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottomMargin, multiplier: 1.0, constant: 5)
-//		bottom.isActive = true
-//		addConstraints([bottom])
-//		
-//		let traling = NSLayoutConstraint(item: collectionView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailingMargin, multiplier: 1.0, constant: 5)
-//		traling.isActive = true
-//		addConstraints([traling])
 		
 	}
 	
@@ -291,7 +277,7 @@ extension IMTokenInputView: UICollectionViewDataSource {
 	var cell: TokenCell
 	
 	if isLastItem(for: indexPath) {
-		  cell = collectionView.dequeueReusableCell(withReuseIdentifier: TokenCell.lastIndentifier, for: indexPath) as! TokenCell
+		  cell = collectionView.dequeueReusableCell(withReuseIdentifier: TokenCell.Identifier.last, for: indexPath) as! TokenCell
 		cell.textField.isUserInteractionEnabled = true
 		cell.textField.text = ""
 		cell.textField.delegate = self
@@ -299,7 +285,7 @@ extension IMTokenInputView: UICollectionViewDataSource {
 		cell.textField.backwardDelegate = self
 		cell.textField.textAlignment = .left
 	} else {
-		  cell = collectionView.dequeueReusableCell(withReuseIdentifier: TokenCell.indentifier, for: indexPath) as! TokenCell
+		  cell = collectionView.dequeueReusableCell(withReuseIdentifier: TokenCell.Identifier.common, for: indexPath) as! TokenCell
 		cell.delegate = self
 		cell.token = allTokens[indexPath.item]
 		cell.tokenIsSelected = false

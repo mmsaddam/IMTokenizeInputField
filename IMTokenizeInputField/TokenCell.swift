@@ -19,8 +19,13 @@ protocol TokenCellDecorable {
 class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
     
     var textField: TokenTextField = TokenTextField()
-    static let indentifier = "TokenCell"
-	static let lastIndentifier = "LastTokenCell"
+    
+    struct Identifier {
+        static let common = "TokenCell"
+        static let last = "LastTokenCell"
+    }
+    
+    
 
     var delegate: TokenCellDelegate?
     var token: Token?
