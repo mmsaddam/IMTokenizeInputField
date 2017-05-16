@@ -29,7 +29,7 @@ class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
 
     var delegate: TokenCellDelegate?
     var token: Token?
-    let cornerRadius = 4.0
+    let cornerRadius = 20.0
     
     var contentInset: UIEdgeInsets = UIEdgeInsets.zero {
         didSet{
@@ -38,9 +38,11 @@ class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
         }
     }
     
-    var tokenIsSelected = false {
+    var isActive = false {
         didSet{
-            backgroundColor = tokenIsSelected ? Utils.Color.tokenSelectedColor : Utils.Color.CellBgColor
+            backgroundColor = isActive ? Utils.Color.tokenSelectedColor : Utils.Color.CellBgColor
+            textField.textColor = isActive ? .white : .black
+            setNeedsDisplay()
         }
     }
     
@@ -50,11 +52,17 @@ class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
     
     override func layoutIfNeeded() {
         super.layoutIfNeeded()
+        updateCorners()
     }
     
     override func layoutSubviews() {
-        super.layoutIfNeeded()
+        super.layoutSubviews()
         textField.frame = CGRect(x: contentInset.left, y: contentInset.top, width: bounds.size.width - (contentInset.left + contentInset.right), height: bounds.size.height - (contentInset.top + contentInset.bottom))
+    }
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        updateCorners()
     }
     
     override init(frame: CGRect) {
@@ -75,9 +83,10 @@ class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
     func updateCorners() {
         let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
         let mask = CAShapeLayer()
+       // mask.lineWidth = 7.0
+       // mask.strokeColor = isActive ?  UIColor.white.cgColor : UIColor.red.cgColor
         mask.path = path.cgPath
         self.layer.mask = mask
-        setNeedsLayout()
     }
     
     //---------------------------------------------------

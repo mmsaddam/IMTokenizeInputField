@@ -100,8 +100,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let name = filteredNames[indexPath.row]
-        let token = Token(name: name)
-        tokenInputView.addToken(token)
+        tokenInputView.addTokenFor(name: name, id: name)
     }
 }
 

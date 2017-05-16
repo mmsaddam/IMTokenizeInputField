@@ -10,17 +10,14 @@ import Foundation
 
 struct Token {
     var name: String
-    fileprivate var id: Date!
     var context: AnyObject?
-    init(name: String) {
+    var id: String
+    
+    init(name: String, id: String) {
         self.name = name
-        id = Date()
+        self.id = id
     }
-    init(name: String, context: AnyObject?) {
-        self.name = name
-        self.context = context
-        id = Date()
-    }
+    
 }
 
 extension Token: Equatable {}
