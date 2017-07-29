@@ -45,10 +45,14 @@ class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
         }
     }
     
-    var isActive = false {
+    /// Cell become selected or deselected
+    /// There is some difference between selected and responding cell.
+    /// Responding cell means for which key is appeared but hasSelected means the cell is ready for action
+    
+    var hasSelected = false {
         didSet{
-            backgroundColor = isActive ? Utils.Color.tokenSelectedColor : Utils.Color.CellBgColor
-            textField.textColor = isActive ? .white : .black
+            backgroundColor = hasSelected ? Utils.Color.tokenSelectedColor : Utils.Color.CellBgColor
+            textField.textColor = hasSelected ? .white : .black
             setNeedsDisplay()
         }
     }
@@ -99,8 +103,6 @@ class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
     func updateCorners() {
         let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
         let mask = CAShapeLayer()
-       // mask.lineWidth = 7.0
-       // mask.strokeColor = isActive ?  UIColor.white.cgColor : UIColor.red.cgColor
         mask.path = path.cgPath
         self.layer.mask = mask
     }
@@ -110,7 +112,7 @@ class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
         textField.isUserInteractionEnabled = type == .default ? false : true
         textField.textColor = UIColor.black
         textField.text = ""
-        isActive = false
+        hasSelected = false
     }
     //---------------------------------------------------
     // MARK: - UIKeyInput Override Method

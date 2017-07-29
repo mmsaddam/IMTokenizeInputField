@@ -143,12 +143,12 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
     //MARK: - Helper Methods
     //-------------------------------
     
-   fileprivate func isLastItem(for indexPath: IndexPath) -> Bool {
-        let totalSections = collectionView.numberOfSections
-        let totalItemInSection = collectionView.numberOfItems(inSection: totalSections - 1)
-        return (indexPath.item == (totalItemInSection - 1) )
-            && (totalSections - 1) == indexPath.section
-    }
+//   fileprivate func isLastItem(for indexPath: IndexPath) -> Bool {
+//        let totalSections = collectionView.numberOfSections
+//        let totalItemInSection = collectionView.numberOfItems(inSection: totalSections - 1)
+//        return (indexPath.item == (totalItemInSection - 1) )
+//            && (totalSections - 1) == indexPath.section
+//    }
     
    fileprivate func scrollToLastItem() {
         
@@ -180,7 +180,7 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
         
         var cellWidth: CGFloat = 0.0
         
-        if isLastItem(for: indexPath) {
+        if collectionView.isLast(indexPath: indexPath) {
             cellWidth = searchFieldWidth
         } else {
             cellWidth = strSize.width + totalHInset + 10
@@ -221,20 +221,36 @@ extension IMTokenInputView {
 extension IMTokenInputView: TokenCellDelegate {
     func willRemove(_ cell: TokenCell) {
         if let token = cell.token {
-            if cell.isActive {
+            if cell.hasSelected {
                 let isRemoved = allTokens.removeObject(obj: token)
                 if isRemoved {
-                    self.respondingCell = nil
                     if let indexPath = self.collectionView.indexPath(for: cell) {
                         self.removeItem(at: indexPath, then: { (completed) in
+                            
+                            self.respondingCell = nil
                             self.delegate?.tokenInputView(self, didRemove: token)
+                            // respond to previous item. If no previous item the goes to next item
+                            let nextItem = min(indexPath.item, (self.collectionView.numberOfItems(inSection: 0) - 1))
+                            let targetIndexPath = IndexPath(item: nextItem, section: 0)
+                            guard let cell = self.collectionView.cellForItem(at: targetIndexPath) as? TokenCell  else {
+                                print("cell found")
+                                return
+                            }
+                            if self.collectionView.isLast(indexPath: targetIndexPath) {
+                                self.respondingCell = nil
+                                cell.textField.becomeFirstResponder()
+                            } else {
+                                self.respondingCell = cell
+                                _ = cell.becomeFirstResponder()
+                                
+                            }
                         })
                     } else {
                         print("Path not found...")
                     }
                 }
             } else {
-                cell.isActive = true
+                cell.hasSelected = true
                 self.respondingCell = cell
                 let indexPath  = collectionView.indexPath(for: cell)
                 collectionView.scrollToItem(at: indexPath!, at: .right, animated: true)
@@ -263,22 +279,29 @@ extension IMTokenInputView: UITextFieldDelegate, IMDeleteBackwardDetectingTextFi
         return true
     }
     
+    /*
+      Place holder cell textfield backward deletion handle. When the textField is empty the respond the immediate
+         previous cell of the search field.
+     */
     func textFieldDeleteBackward(_ textField: TokenTextField) {
         
-        if allTokens.count > 0 {
-            let indexPath = IndexPath(item: allTokens.count - 1, section: 0)
-            guard let cell: TokenCell = collectionView.cellForItem(at: indexPath) as? TokenCell else {
-                return
-            }
-            if cell.isActive {
-                _ = cell.becomeFirstResponder()
-                return
-            } else {
-                respondingCell?.isActive = false
-                cell.isActive = true
-                respondingCell = cell
-                _ = cell.becomeFirstResponder()
-            }
+        /// when there exist any token in the view then go ahead
+        let numberOfItems = self.collectionView.numberOfItems(inSection: 0)
+        guard numberOfItems > 1 else { return }
+        guard let cell: TokenCell = collectionView.cellForItem(at: IndexPath(item: numberOfItems - 2, section: 0)) as? TokenCell else {
+            print("Cell not found.....")
+            return
+            
+        }
+        
+        if cell.hasSelected {
+            return
+        } else {
+            respondingCell?.hasSelected = false
+            respondingCell = nil // reset previous responding cell
+            cell.hasSelected = true
+            respondingCell = cell
+            _ = cell.becomeFirstResponder()
         }
         
     }
@@ -353,7 +376,7 @@ extension IMTokenInputView: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if isLastItem(for: indexPath) {
+        if  collectionView.isLast(indexPath: indexPath) {
             return calculateCellSize(atIndexPath: indexPath)
         }
         return calculateCellSize(for: allTokens[indexPath.item].name, atIndexPath: indexPath)
@@ -379,20 +402,20 @@ extension IMTokenInputView: UICollectionViewDelegate{
         
         let targetIndexPath: IndexPath = indexPath
         
-//        if isLastItem(for: targetIndexPath) {
-//            return
-//        }
+        guard !collectionView.isLast(indexPath: indexPath) else {
+            return
+        }
         
         guard let cell: TokenCell = collectionView.cellForItem(at: targetIndexPath) as? TokenCell else {
             return
         }
         if respondingCell == cell {
-            cell.isActive = !cell.isActive
+            cell.hasSelected = !cell.hasSelected
             respondingCell = cell
             
         } else {
-            respondingCell?.isActive = false // deselect current section because only one selection at a time
-            cell.isActive = !cell.isActive
+            respondingCell?.hasSelected = false // deselect current section because only one selection at a time
+            cell.hasSelected = !cell.hasSelected
             respondingCell = cell
         }
         

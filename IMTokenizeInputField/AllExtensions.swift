@@ -25,4 +25,13 @@ extension String {
     }
 }
 
+extension UICollectionView {
+    func isLast(indexPath: IndexPath) -> Bool {
+        let totalSections = self.numberOfSections
+        let totalItemInSection = self.numberOfItems(inSection: totalSections - 1)
+        return (indexPath.item == (totalItemInSection - 1) )
+            && (totalSections - 1) == indexPath.section
+    }
+}
+
 
