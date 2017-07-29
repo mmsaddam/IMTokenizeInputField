@@ -16,6 +16,11 @@ protocol TokenCellDecorable {
     var token: Token? { get set}
 }
 
+public enum CellType {
+    case placeholder
+    case `default`
+}
+
 class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
     
     var textField: TokenTextField = TokenTextField()
@@ -24,13 +29,15 @@ class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
         static let common = "TokenCell"
         static let last = "LastTokenCell"
     }
-    
-    
-
     var delegate: TokenCellDelegate?
     var token: Token?
     let cornerRadius = 20.0
     
+    var type: CellType = .default {
+        didSet {
+            fitToType()
+        }
+    }
     var contentInset: UIEdgeInsets = UIEdgeInsets.zero {
         didSet{
             updateCorners()
@@ -53,11 +60,13 @@ class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
     override func layoutIfNeeded() {
         super.layoutIfNeeded()
         updateCorners()
+        setConstraints()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        textField.frame = CGRect(x: contentInset.left, y: contentInset.top, width: bounds.size.width - (contentInset.left + contentInset.right), height: bounds.size.height - (contentInset.top + contentInset.bottom))
+        setConstraints()
+       // textField.frame = CGRect(x: contentInset.left, y: contentInset.top, width: bounds.size.width - (contentInset.left + contentInset.right), height: bounds.size.height - (contentInset.top + contentInset.bottom))
     }
     
     override func draw(_ rect: CGRect) {
@@ -78,7 +87,14 @@ class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
     func commonSetup() {
         backgroundColor = Utils.Color.CellBgColor
         addSubview(textField)
+        textField.translatesAutoresizingMaskIntoConstraints = false
 
+    }
+    func setConstraints() {
+        addConstraint(NSLayoutConstraint(item: textField, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leadingMargin, multiplier: 1, constant: 0))
+        addConstraint(NSLayoutConstraint(item: textField, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailingMargin, multiplier: 1, constant: 0))
+        addConstraint(NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: self, attribute: .topMargin, multiplier: 1, constant: 0))
+        addConstraint(NSLayoutConstraint(item: textField, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottomMargin, multiplier: 1, constant: 0))
     }
     func updateCorners() {
         let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
@@ -89,6 +105,13 @@ class TokenCell: UICollectionViewCell,TokenCellDecorable, UIKeyInput {
         self.layer.mask = mask
     }
     
+    private func fitToType() {
+        textField.textAlignment = type == .default ? .center : .left
+        textField.isUserInteractionEnabled = type == .default ? false : true
+        textField.textColor = UIColor.black
+        textField.text = ""
+        isActive = false
+    }
     //---------------------------------------------------
     // MARK: - UIKeyInput Override Method
     //---------------------------------------------------

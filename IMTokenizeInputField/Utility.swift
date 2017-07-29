@@ -9,11 +9,11 @@
 import Foundation
 import UIKit
 
-class Utils {
+struct Utils {
     struct Color {
         static let collectionViewBgColor = UIColor.lightText
         static let CellBgColor =  UIColor.white
-        static let textFieldBgColor = UIColor.clear
+        static let textFieldBgColor = UIColor.green
         static let tokenBgColor = UIColor.clear
         static let tokenSelectedColor = UIColor.red
         static let tokenTextColor = UIColor.white

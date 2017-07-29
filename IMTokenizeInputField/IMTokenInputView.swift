@@ -26,14 +26,13 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
     
     // MARK: Properties
     
-    fileprivate var collectionView: UICollectionView!
-    fileprivate var layout:CustomFlowLayout = CustomFlowLayout()
+    var collectionView: UICollectionView!
+    fileprivate lazy var layout:CustomFlowLayout = CustomFlowLayout()
     fileprivate var minTokenHeight: CGFloat = 40.0
     fileprivate var minTokenWidth: CGFloat = 50.0
 
     fileprivate var defaultFont: UIFont = UIFont.systemFont(ofSize: 17)
     fileprivate var searchFieldWidth: CGFloat = 150
-    fileprivate var collectionViewPadding: (left: CGFloat, right: CGFloat) = (left: 5.0, right: 5.0)
     var tokenHeight: CGFloat = 40.0 {
         didSet {
             if tokenHeight < minTokenHeight {
@@ -46,6 +45,7 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
     
     fileprivate var allTokens: [Token] = []
     fileprivate var respondingCell: TokenCell?
+    
     var tokens: [Token] {
         return self.allTokens
     }
@@ -58,7 +58,6 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
         collectionView.backgroundColor = Utils.Color.collectionViewBgColor
         collectionView.delegate = self
         collectionView.dataSource = self
-        allTokens.append(generateToken(for: "first", id: "first"))
         collectionView.reloadData()
     }
     
@@ -74,33 +73,59 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        collectionView.frame = CGRect(x: collectionViewPadding.left, y: 0, width: bounds.width - (collectionViewPadding.left + collectionViewPadding.right), height: bounds.height)
+        collectionView.frame = bounds
+    }
+    
+    // Currently not used. Future improvement
+    
+    func setConstraints() {
+        collectionView.topAnchor.constraint(equalTo: self.topAnchor)
+        collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
+        collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
     }
     
     // MARK: Initial Setup
     
-   private func commonInit() {
+    private func commonInit() {
+        
         collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
         collectionView.bounces = true
         collectionView.alwaysBounceHorizontal = true
         addSubview(collectionView)
+        
+       // setConstraints()
     }
     
     //---------------------------------------------------
     // MARK: - Public Method
     //---------------------------------------------------
     
+    static func generateToken(for name: String, id: String) -> Token {
+        return Token(name: name, id: id)
+    }
     
     //---------------------------------------------------
-    // MARK: - Add Remove Token
+    // MARK: - Add / Remove Token
     //---------------------------------------------------
     
     fileprivate func addToken(_ token:Token) {
         if !allTokens.contains(token) {
-            allTokens.append(token)
-            self.collectionView.reloadData()
-            self.scrollToLastItem()
-            self.delegate?.tokenInputView(self, didAdd: token)
+            // add element into array first
+            self.allTokens.append(token)
+            
+            // insert new cell
+            OperationQueue.main.addOperation {
+                self.collectionView.performBatchUpdates({ [weak self] in
+                    let targetIndexPath = NSIndexPath(item: (self?.allTokens.count)!-1, section: 0)
+                    self?.collectionView.insertItems(at: [targetIndexPath as IndexPath])
+                    }, completion: {[weak self] (complete) in
+                        guard let strongSelf = self else { return }
+                        strongSelf.scrollToLastItem()
+                        strongSelf.delegate?.tokenInputView(strongSelf, didAdd: token)
+                })
+                
+            }
         } else {
             print("already added...")
         }
@@ -117,7 +142,7 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
     //-------------------------------
     //MARK: - Helper Methods
     //-------------------------------
-
+    
    fileprivate func isLastItem(for indexPath: IndexPath) -> Bool {
         let totalSections = collectionView.numberOfSections
         let totalItemInSection = collectionView.numberOfItems(inSection: totalSections - 1)
@@ -134,11 +159,12 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
     
     }
     
-    fileprivate func removeItem(at indexPath: IndexPath) {
-        
+    fileprivate func removeItem(at indexPath: IndexPath, then: @escaping (Bool) -> Void) {
         self.collectionView.performBatchUpdates({
             self.collectionView.deleteItems(at: [indexPath])
-        }, completion: nil)
+        }, completion: { (completed) in
+            then(completed)
+        })
         
     }
     
@@ -146,8 +172,6 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
         
         let totalVInset = tokenContentInset.top + tokenContentInset.bottom
         let totalHInset = tokenContentInset.left + tokenContentInset.right
-        
-        
         var strSize = tokenStr.getSize(font: tokenFont)
         
         if (strSize.height > (tokenHeight - totalVInset)) {
@@ -159,7 +183,7 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
         if isLastItem(for: indexPath) {
             cellWidth = searchFieldWidth
         } else {
-            cellWidth = strSize.width + totalHInset
+            cellWidth = strSize.width + totalHInset + 10
         }
         
         return CGSize(width: max(minTokenWidth, cellWidth), height: tokenHeight)
@@ -174,7 +198,7 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
 extension IMTokenInputView {
     
     public func addTokenFor(name: String, id: String) {
-       let newToken = generateToken(for: name, id: id)
+       let newToken = IMTokenInputView.generateToken(for: name, id: id)
         addToken(newToken)
     }
     public func removeTokenFor(id: String) {
@@ -189,9 +213,6 @@ extension IMTokenInputView {
         return allTokens.filter { $0.id == id }.first
     }
     
-    func generateToken(for name: String, id: String) -> Token {
-        return Token(name: name, id: id)
-    }
 }
 
 
@@ -200,15 +221,25 @@ extension IMTokenInputView {
 extension IMTokenInputView: TokenCellDelegate {
     func willRemove(_ cell: TokenCell) {
         if let token = cell.token {
-            let isRemoved = allTokens.removeObject(obj: token)
-            if isRemoved {
-                self.respondingCell = nil                
-                if let indexPath = self.collectionView.indexPath(for: cell) {
-                    self.removeItem(at: indexPath)
-                } else {
-                    print("Path not found...")
+            if cell.isActive {
+                let isRemoved = allTokens.removeObject(obj: token)
+                if isRemoved {
+                    self.respondingCell = nil
+                    if let indexPath = self.collectionView.indexPath(for: cell) {
+                        self.removeItem(at: indexPath, then: { (completed) in
+                            self.delegate?.tokenInputView(self, didRemove: token)
+                        })
+                    } else {
+                        print("Path not found...")
+                    }
                 }
+            } else {
+                cell.isActive = true
+                self.respondingCell = cell
+                let indexPath  = collectionView.indexPath(for: cell)
+                collectionView.scrollToItem(at: indexPath!, at: .right, animated: true)
             }
+
             
         }
     }
@@ -280,31 +311,35 @@ extension IMTokenInputView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         var cell: TokenCell
-        
-        if isLastItem(for: indexPath) {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: TokenCell.Identifier.last, for: indexPath) as! TokenCell
-            cell.textField.isUserInteractionEnabled = true
-            cell.textField.textColor = UIColor.black
-            cell.textField.text = ""
-            cell.textField.delegate = self
-            cell.textField.addTarget(self, action: #selector(IMTokenInputView.onTextFieldDidChange(_:)), for: .editingChanged)
-            cell.textField.backwardDelegate = self
-            cell.textField.textAlignment = .left
+        debugPrint(indexPath)
+        if indexPath.item == (self.collectionView.numberOfItems(inSection: 0)-1) {
+            cell = placeholderCell(for: indexPath)
         } else {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: TokenCell.Identifier.common, for: indexPath) as! TokenCell
-            cell.delegate = self
+            cell = commonCell(for: indexPath)
             cell.token = allTokens[indexPath.item]
-            cell.isActive = false
             cell.textField.text = allTokens[indexPath.item].name
-            cell.textField.textAlignment = .center
-            
         }
-        
-        cell.textField.font = tokenFont
-        cell.contentInset = tokenContentInset
         
         return cell
         
+    }
+    
+    func placeholderCell(for indexPath: IndexPath) -> TokenCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TokenCell.Identifier.last, for: indexPath) as! TokenCell
+        cell.textField.font = tokenFont
+        
+        cell.type = .placeholder
+        cell.textField.delegate = self
+        cell.textField.addTarget(self, action: #selector(IMTokenInputView.onTextFieldDidChange(_:)), for: .editingChanged)
+        cell.textField.backwardDelegate = self
+        return cell
+    }
+    func commonCell(for indexPath: IndexPath) -> TokenCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TokenCell.Identifier.common, for: indexPath) as! TokenCell
+        cell.textField.font = tokenFont
+        cell.type = .default
+        cell.delegate = self
+        return cell
     }
     
 }
@@ -328,9 +363,10 @@ extension IMTokenInputView: UICollectionViewDelegateFlowLayout {
         
         let colVHeight = self.collectionView.frame.size.height
         let topInset = (colVHeight - tokenHeight) / 2
-        let bottomInset = topInset
+        _ = topInset
         
-        return UIEdgeInsets(top: topInset, left: tokenContentInset.left, bottom: bottomInset, right: tokenContentInset.right)
+        return UIEdgeInsets.zero
+            //UIEdgeInsets(top: topInset, left: tokenContentInset.left, bottom: bottomInset, right: tokenContentInset.right)
     }
     
 }
@@ -343,9 +379,9 @@ extension IMTokenInputView: UICollectionViewDelegate{
         
         let targetIndexPath: IndexPath = indexPath
         
-        if isLastItem(for: targetIndexPath) {
-            return
-        }
+//        if isLastItem(for: targetIndexPath) {
+//            return
+//        }
         
         guard let cell: TokenCell = collectionView.cellForItem(at: targetIndexPath) as? TokenCell else {
             return
@@ -360,23 +396,7 @@ extension IMTokenInputView: UICollectionViewDelegate{
             respondingCell = cell
         }
         
-        
-        
         _ = cell.becomeFirstResponder()
-        
-        //		selectedCell?.tokenIsSelected = false
-        //		
-        //        if cell.tokenIsSelected {
-        //            cell.tokenIsSelected = false
-        //            selectedCell = nil
-        //            _ = cell.becomeFirstResponder()
-        //
-        //        } else {
-        //            cell.tokenIsSelected = true
-        //            selectedCell = cell
-        //           // selectedCell?.tokenIsSelected = false
-        //            _ = cell.becomeFirstResponder()
-        //        }
         
     }
 }

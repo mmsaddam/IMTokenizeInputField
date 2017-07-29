@@ -26,7 +26,7 @@ class CustomFlowLayout: UICollectionViewFlowLayout {
 	func setup() {
 		minimumInteritemSpacing = 5.0
 		scrollDirection = scrollerDireciton
-        sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        //sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 	}
 
 }

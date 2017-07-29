@@ -12,7 +12,12 @@ class ViewController: UIViewController {
 	
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var tokenInputView: IMTokenInputView!
-	
+    
+    struct User {
+        var name: String
+        var id: Int
+    }
+    
 	// MARK:- Properties
 	var names:[String] = []
 	var filteredNames:[String] = []
@@ -24,7 +29,7 @@ class ViewController: UIViewController {
 		tokenInputView.tokenHeight = 40.0
 		self.automaticallyAdjustsScrollViewInsets = false
 		tokenInputView.delegate = self
-		
+        
 		for i in 0..<99 {
 			names.append("item number \(i)")
 		}
@@ -32,6 +37,9 @@ class ViewController: UIViewController {
 	}
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
     }
 	
@@ -56,23 +64,18 @@ extension ViewController: IMTokenInputViewDelegate {
         } else {
             
         }
+        tableView.reloadData()
     }
     func tokenInputView(_ tokenInputView: IMTokenInputView, didRemove token: Token) {
         if selectedNames.contains(token.name) {
            _ = selectedNames.removeObject(obj: token.name)
         }
+        tableView.reloadData()
     }
     func tokenInputView(_ tokenInputView: IMTokenInputView, didChangeText text: String) {
         
-        if text == "" {
-            self.filteredNames = []
-            self.tableView.isHidden = true
-        }
-        else {
-            let predicate:NSPredicate = NSPredicate(format: "self contains[cd] %@", argumentArray: [text])
-            self.filteredNames = self.names.filter { predicate.evaluate(with: $0) }
-            self.tableView.isHidden = false
-        }
+        let predicate:NSPredicate = NSPredicate(format: "self contains[cd] %@", argumentArray: [text])
+        self.filteredNames = self.names.filter { predicate.evaluate(with: $0) }
         self.tableView.reloadData()
     }
     
