@@ -8,10 +8,10 @@
 
 import Foundation
 
-struct Token {
-    var name: String
-    var context: AnyObject?
-    var id: String
+public struct Token {
+   public var name: String
+   public var context: AnyObject?
+   public var id: String
     
     init(name: String, id: String) {
         self.name = name
@@ -22,7 +22,7 @@ struct Token {
 
 extension Token: Equatable {}
 
-func ==(lhs: Token, rhs: Token) -> Bool{
+public func ==(lhs: Token, rhs: Token) -> Bool{
     return lhs.id == rhs.id
 }
 

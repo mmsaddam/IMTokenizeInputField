@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol IMTokenInputViewDelegate {
+public protocol IMTokenInputViewDelegate {
     func tokenInputView(_ tokenInputView: IMTokenInputView, didSelect token: Token)
     func tokenInputView(_ tokenInputView: IMTokenInputView, didAdd token: Token)
     func tokenInputView(_ tokenInputView: IMTokenInputView, didRemove token: Token)
@@ -21,7 +21,7 @@ protocol IMTokenInutViewProtocol {
     var tokens: [Token] { get }
 }
 
-class IMTokenInputView: UIView, IMTokenInutViewProtocol {
+public class IMTokenInputView: UIView, IMTokenInutViewProtocol {
     
     // MARK: Properties
     
@@ -32,7 +32,7 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
 
     fileprivate var defaultFont: UIFont = UIFont.systemFont(ofSize: 17)
     fileprivate var searchFieldWidth: CGFloat = 150
-    var tokenHeight: CGFloat = 40.0 {
+    public var tokenHeight: CGFloat = 40.0 {
         didSet {
             if tokenHeight < minTokenHeight {
                 tokenHeight = minTokenHeight
@@ -45,13 +45,13 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
     fileprivate var allTokens: [Token] = []
     fileprivate var respondingCell: TokenCell?
     
-    var tokens: [Token] {
+   public var tokens: [Token] {
         return self.allTokens
     }
     
-    var delegate: IMTokenInputViewDelegate?
+   public var delegate: IMTokenInputViewDelegate?
     
-    override func awakeFromNib() {
+    override public func awakeFromNib() {
         collectionView.register(TokenCell.self, forCellWithReuseIdentifier: TokenCell.Identifier.common)
         collectionView.register(TokenCell.self, forCellWithReuseIdentifier: TokenCell.Identifier.last)
         collectionView.backgroundColor = Utils.Color.collectionViewBgColor
@@ -65,12 +65,12 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
         commonInit()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
     }
     
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         collectionView.frame = bounds
     }
@@ -210,7 +210,7 @@ extension IMTokenInputView {
         removeToken(token)
     }
     
-    public func getToken(for id: String) -> Token? {
+     func getToken(for id: String) -> Token? {
         return allTokens.filter { $0.id == id }.first
     }
     
@@ -270,14 +270,14 @@ extension IMTokenInputView: TokenCellDelegate {
 
 extension IMTokenInputView: UITextFieldDelegate, IMDeleteBackwardDetectingTextFieldDelegate {
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
         
     }
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    public func textFieldDidEndEditing(_ textField: UITextField) {
         
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder() // did not work, need to fix
         endEditing(true) // forcefull resign responder
         return true
@@ -310,7 +310,7 @@ extension IMTokenInputView: UITextFieldDelegate, IMDeleteBackwardDetectingTextFi
         
     }
     
-    func onTextFieldDidChange(_ textField: UITextField) {
+    @objc func onTextFieldDidChange(_ textField: UITextField) {
         delegate?.tokenInputView(self, didChangeText: textField.text ?? "")
     }
     
@@ -326,16 +326,16 @@ extension IMTokenInputView: UICollectionViewDataSource {
      ----------------------------
      */
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    public func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1 + allTokens.count
     }
     
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         var cell: TokenCell
         debugPrint(indexPath)
@@ -378,7 +378,7 @@ extension IMTokenInputView: UICollectionViewDataSource {
 
 extension IMTokenInputView: UICollectionViewDelegateFlowLayout {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         if  collectionView.isLast(indexPath: indexPath) {
             return calculateCellSize(atIndexPath: indexPath)
@@ -386,7 +386,7 @@ extension IMTokenInputView: UICollectionViewDelegateFlowLayout {
         return calculateCellSize(for: allTokens[indexPath.item].name, atIndexPath: indexPath)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets{
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets{
         
         let colVHeight = self.collectionView.frame.size.height
         let topInset = (colVHeight - tokenHeight) / 2
@@ -402,7 +402,7 @@ extension IMTokenInputView: UICollectionViewDelegateFlowLayout {
 // MARK: - UICollectionView Delegate
 
 extension IMTokenInputView: UICollectionViewDelegate{
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let targetIndexPath: IndexPath = indexPath
         

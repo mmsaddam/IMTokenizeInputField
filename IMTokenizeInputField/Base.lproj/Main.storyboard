@@ -68,7 +68,7 @@
                     <size key="freeformSize" width="320" height="667"/>
                     <connections>
                         <outlet property="tableView" destination="wyT-LN-Pnw" id="1me-h3-4fF"/>
-                        <outlet property="tokenInputView" destination="j8Q-aO-Vkd" id="gX0-Fq-bMZ"/>
+                        <outlet property="tokenInputView" destination="j8Q-aO-Vkd" id="6SX-gj-OmP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

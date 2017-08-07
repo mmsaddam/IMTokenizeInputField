@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 extension Array where Element: Equatable{
-    mutating func removeObject( obj: Element) -> Bool{
+    mutating public func removeObject( obj: Element) -> Bool{
         if let index = index(of: obj) {
             remove(at: index)
             return true
@@ -21,20 +21,30 @@ extension Array where Element: Equatable{
 
 extension String {
     func getSize(font: UIFont) -> CGSize {
-        return (self as NSString).size(attributes: [NSFontAttributeName : font])
+        if #available(iOS 11.0, *) {
+            return (self as NSString).size(withAttributes: [NSAttributedStringKey.font : font])
+
+            
+        } else {
+            return (self as NSString).size(withAttributes: [NSAttributedStringKey.font : font])
+        }
+        
+        
+            //(self as NSString).size(attributes: [NSAttributedStringKey.font : font])
+            //(self as NSString).size(withAttributes: [NSFontAttributeName : font])
     }
 }
 
 extension UICollectionView {
     /// Check where the indexPath is last or not
-    func isLast(indexPath: IndexPath) -> Bool {
+   public func isLast(indexPath: IndexPath) -> Bool {
         let totalSections = self.numberOfSections
         let totalItemInSection = self.numberOfItems(inSection: totalSections - 1)
         return (indexPath.item == (totalItemInSection - 1) )
             && (totalSections - 1) == indexPath.section
     }
     /// 
-    func scrollToLastItem(at scrollPosition: UICollectionViewScrollPosition) {
+  public  func scrollToLastItem(at scrollPosition: UICollectionViewScrollPosition) {
         let sections = numberOfSections
         let items = numberOfItems(inSection: sections - 1)
         let lastIndexPath = IndexPath(item: items - 1, section: sections - 1)

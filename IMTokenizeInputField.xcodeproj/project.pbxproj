@@ -7,23 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		41791CDD1F3695A400AAC399 /* TokenizeInputField.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41791CD41F3695A400AAC399 /* TokenizeInputField.framework */; };
+		410C29B71F37E78B00666E02 /* TestFramework.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C29B51F37E78B00666E02 /* TestFramework.swift */; };
+		410C29C01F37E8BE00666E02 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C29B81F37E8BE00666E02 /* Utility.swift */; };
+		410C29C21F37E8BE00666E02 /* TokenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C29B91F37E8BE00666E02 /* TokenCell.swift */; };
+		410C29C61F37E8BE00666E02 /* IMToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C29BB1F37E8BE00666E02 /* IMToken.swift */; };
+		410C29C81F37E8BE00666E02 /* CustomFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C29BC1F37E8BE00666E02 /* CustomFlowLayout.swift */; };
+		410C29CA1F37E8BE00666E02 /* IMTokenInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C29BD1F37E8BE00666E02 /* IMTokenInputView.swift */; };
+		410C29CC1F37E8BE00666E02 /* TokenTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C29BE1F37E8BE00666E02 /* TokenTextField.swift */; };
+		41781C121F37F03C00964CAA /* AllExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C29BA1F37E8BE00666E02 /* AllExtensions.swift */; };
+		41781C201F37F5D900964CAA /* TokenizeInputField.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41791CD41F3695A400AAC399 /* TokenizeInputField.framework */; };
+		41781C211F37F62A00964CAA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F7CE511E70E2E800F6ADC8 /* ViewController.swift */; };
 		41791CE41F3695A400AAC399 /* TokenizeInputFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41791CE31F3695A400AAC399 /* TokenizeInputFieldTests.swift */; };
 		41791CE61F3695A400AAC399 /* TokenizeInputField.h in Headers */ = {isa = PBXBuildFile; fileRef = 41791CD61F3695A400AAC399 /* TokenizeInputField.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		41791CE91F3695A400AAC399 /* TokenizeInputField.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41791CD41F3695A400AAC399 /* TokenizeInputField.framework */; };
-		41791CEA1F3695A400AAC399 /* TokenizeInputField.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 41791CD41F3695A400AAC399 /* TokenizeInputField.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		41C703C71E71C3400012D66F /* IMToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C703C61E71C3400012D66F /* IMToken.swift */; };
-		41C703C91E71CAEA0012D66F /* IMTokenInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C703C81E71CAEA0012D66F /* IMTokenInputView.swift */; };
-		41C703CD1E71D4930012D66F /* AllExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C703CC1E71D4930012D66F /* AllExtensions.swift */; };
-		41C703CF1E73015D0012D66F /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C703CE1E73015D0012D66F /* Utility.swift */; };
-		41C703D11E73077C0012D66F /* TokenTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C703D01E73077C0012D66F /* TokenTextField.swift */; };
-		41C703D31E7333A00012D66F /* CustomFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C703D21E7333A00012D66F /* CustomFlowLayout.swift */; };
 		41F7CE501E70E2E800F6ADC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F7CE4F1E70E2E800F6ADC8 /* AppDelegate.swift */; };
-		41F7CE521E70E2E800F6ADC8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F7CE511E70E2E800F6ADC8 /* ViewController.swift */; };
 		41F7CE551E70E2E800F6ADC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41F7CE531E70E2E800F6ADC8 /* Main.storyboard */; };
 		41F7CE571E70E2E800F6ADC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41F7CE561E70E2E800F6ADC8 /* Assets.xcassets */; };
 		41F7CE5A1E70E2E800F6ADC8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41F7CE581E70E2E800F6ADC8 /* LaunchScreen.storyboard */; };
-		41F7CE621E70E6EF00F6ADC8 /* TokenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F7CE611E70E6EF00F6ADC8 /* TokenCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,42 +40,23 @@
 			remoteGlobalIDString = 41F7CE4B1E70E2E800F6ADC8;
 			remoteInfo = IMTokenizeInputField;
 		};
-		41791CE71F3695A400AAC399 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 41F7CE441E70E2E800F6ADC8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 41791CD31F3695A400AAC399;
-			remoteInfo = TokenizeInputField;
-		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		41791CF01F3695A400AAC399 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				41791CEA1F3695A400AAC399 /* TokenizeInputField.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
+		410C29B51F37E78B00666E02 /* TestFramework.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFramework.swift; sourceTree = "<group>"; };
+		410C29B81F37E8BE00666E02 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		410C29B91F37E8BE00666E02 /* TokenCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenCell.swift; sourceTree = "<group>"; };
+		410C29BA1F37E8BE00666E02 /* AllExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllExtensions.swift; sourceTree = "<group>"; };
+		410C29BB1F37E8BE00666E02 /* IMToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMToken.swift; sourceTree = "<group>"; };
+		410C29BC1F37E8BE00666E02 /* CustomFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFlowLayout.swift; sourceTree = "<group>"; };
+		410C29BD1F37E8BE00666E02 /* IMTokenInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMTokenInputView.swift; sourceTree = "<group>"; };
+		410C29BE1F37E8BE00666E02 /* TokenTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenTextField.swift; sourceTree = "<group>"; };
 		41791CD41F3695A400AAC399 /* TokenizeInputField.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TokenizeInputField.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		41791CD61F3695A400AAC399 /* TokenizeInputField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TokenizeInputField.h; sourceTree = "<group>"; };
 		41791CD71F3695A400AAC399 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41791CDC1F3695A400AAC399 /* TokenizeInputFieldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TokenizeInputFieldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		41791CE31F3695A400AAC399 /* TokenizeInputFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenizeInputFieldTests.swift; sourceTree = "<group>"; };
 		41791CE51F3695A400AAC399 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		41C703C61E71C3400012D66F /* IMToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMToken.swift; sourceTree = "<group>"; };
-		41C703C81E71CAEA0012D66F /* IMTokenInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMTokenInputView.swift; sourceTree = "<group>"; };
-		41C703CC1E71D4930012D66F /* AllExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllExtensions.swift; sourceTree = "<group>"; };
-		41C703CE1E73015D0012D66F /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
-		41C703D01E73077C0012D66F /* TokenTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenTextField.swift; sourceTree = "<group>"; };
-		41C703D21E7333A00012D66F /* CustomFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFlowLayout.swift; sourceTree = "<group>"; };
 		41F7CE4C1E70E2E800F6ADC8 /* IMTokenizeInputField.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IMTokenizeInputField.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41F7CE4F1E70E2E800F6ADC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41F7CE511E70E2E800F6ADC8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -84,7 +64,6 @@
 		41F7CE561E70E2E800F6ADC8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		41F7CE591E70E2E800F6ADC8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		41F7CE5B1E70E2E800F6ADC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		41F7CE611E70E6EF00F6ADC8 /* TokenCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +78,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41791CDD1F3695A400AAC399 /* TokenizeInputField.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,7 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41791CE91F3695A400AAC399 /* TokenizeInputField.framework in Frameworks */,
+				41781C201F37F5D900964CAA /* TokenizeInputField.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,7 +95,15 @@
 		41791CD51F3695A400AAC399 /* TokenizeInputField */ = {
 			isa = PBXGroup;
 			children = (
+				410C29BA1F37E8BE00666E02 /* AllExtensions.swift */,
+				410C29BC1F37E8BE00666E02 /* CustomFlowLayout.swift */,
+				410C29BB1F37E8BE00666E02 /* IMToken.swift */,
+				410C29BD1F37E8BE00666E02 /* IMTokenInputView.swift */,
+				410C29B91F37E8BE00666E02 /* TokenCell.swift */,
+				410C29BE1F37E8BE00666E02 /* TokenTextField.swift */,
+				410C29B81F37E8BE00666E02 /* Utility.swift */,
 				41791CD61F3695A400AAC399 /* TokenizeInputField.h */,
+				410C29B51F37E78B00666E02 /* TestFramework.swift */,
 				41791CD71F3695A400AAC399 /* Info.plist */,
 			);
 			path = TokenizeInputField;
@@ -157,13 +143,6 @@
 			children = (
 				41F7CE4F1E70E2E800F6ADC8 /* AppDelegate.swift */,
 				41F7CE511E70E2E800F6ADC8 /* ViewController.swift */,
-				41F7CE611E70E6EF00F6ADC8 /* TokenCell.swift */,
-				41C703C81E71CAEA0012D66F /* IMTokenInputView.swift */,
-				41C703D21E7333A00012D66F /* CustomFlowLayout.swift */,
-				41C703CE1E73015D0012D66F /* Utility.swift */,
-				41C703D01E73077C0012D66F /* TokenTextField.swift */,
-				41C703CC1E71D4930012D66F /* AllExtensions.swift */,
-				41C703C61E71C3400012D66F /* IMToken.swift */,
 				41F7CE531E70E2E800F6ADC8 /* Main.storyboard */,
 				41F7CE561E70E2E800F6ADC8 /* Assets.xcassets */,
 				41F7CE581E70E2E800F6ADC8 /* LaunchScreen.storyboard */,
@@ -230,12 +209,10 @@
 				41F7CE481E70E2E800F6ADC8 /* Sources */,
 				41F7CE491E70E2E800F6ADC8 /* Frameworks */,
 				41F7CE4A1E70E2E800F6ADC8 /* Resources */,
-				41791CF01F3695A400AAC399 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				41791CE81F3695A400AAC399 /* PBXTargetDependency */,
 			);
 			name = IMTokenizeInputField;
 			productName = IMTokenizeInputField;
@@ -320,6 +297,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				410C29C21F37E8BE00666E02 /* TokenCell.swift in Sources */,
+				410C29CC1F37E8BE00666E02 /* TokenTextField.swift in Sources */,
+				410C29C01F37E8BE00666E02 /* Utility.swift in Sources */,
+				410C29CA1F37E8BE00666E02 /* IMTokenInputView.swift in Sources */,
+				410C29B71F37E78B00666E02 /* TestFramework.swift in Sources */,
+				410C29C61F37E8BE00666E02 /* IMToken.swift in Sources */,
+				410C29C81F37E8BE00666E02 /* CustomFlowLayout.swift in Sources */,
+				41781C121F37F03C00964CAA /* AllExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,15 +320,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41C703CF1E73015D0012D66F /* Utility.swift in Sources */,
-				41C703D11E73077C0012D66F /* TokenTextField.swift in Sources */,
-				41C703C91E71CAEA0012D66F /* IMTokenInputView.swift in Sources */,
-				41F7CE621E70E6EF00F6ADC8 /* TokenCell.swift in Sources */,
-				41F7CE521E70E2E800F6ADC8 /* ViewController.swift in Sources */,
-				41C703CD1E71D4930012D66F /* AllExtensions.swift in Sources */,
+				41781C211F37F62A00964CAA /* ViewController.swift in Sources */,
 				41F7CE501E70E2E800F6ADC8 /* AppDelegate.swift in Sources */,
-				41C703D31E7333A00012D66F /* CustomFlowLayout.swift in Sources */,
-				41C703C71E71C3400012D66F /* IMToken.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,11 +337,6 @@
 			isa = PBXTargetDependency;
 			target = 41F7CE4B1E70E2E800F6ADC8 /* IMTokenizeInputField */;
 			targetProxy = 41791CE01F3695A400AAC399 /* PBXContainerItemProxy */;
-		};
-		41791CE81F3695A400AAC399 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 41791CD31F3695A400AAC399 /* TokenizeInputField */;
-			targetProxy = 41791CE71F3695A400AAC399 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -407,13 +380,13 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = TokenizeInputField/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.iMuzahid.TokenizeInputField;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -439,13 +412,13 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = TokenizeInputField/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.iMuzahid.TokenizeInputField;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -541,7 +514,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -585,7 +558,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -636,6 +609,7 @@
 				41791CEC1F3695A400AAC399 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		41791CF11F3695A400AAC399 /* Build configuration list for PBXNativeTarget "TokenizeInputFieldTests" */ = {
 			isa = XCConfigurationList;
@@ -644,6 +618,7 @@
 				41791CEE1F3695A400AAC399 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		41F7CE471E70E2E800F6ADC8 /* Build configuration list for PBXProject "IMTokenizeInputField" */ = {
 			isa = XCConfigurationList;
