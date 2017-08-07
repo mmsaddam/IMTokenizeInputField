@@ -26,11 +26,19 @@ extension String {
 }
 
 extension UICollectionView {
+    /// Check where the indexPath is last or not
     func isLast(indexPath: IndexPath) -> Bool {
         let totalSections = self.numberOfSections
         let totalItemInSection = self.numberOfItems(inSection: totalSections - 1)
         return (indexPath.item == (totalItemInSection - 1) )
             && (totalSections - 1) == indexPath.section
+    }
+    /// 
+    func scrollToLastItem(at scrollPosition: UICollectionViewScrollPosition) {
+        let sections = numberOfSections
+        let items = numberOfItems(inSection: sections - 1)
+        let lastIndexPath = IndexPath(item: items - 1, section: sections - 1)
+        scrollToItem(at: lastIndexPath, at: scrollPosition, animated: true)
     }
 }
 

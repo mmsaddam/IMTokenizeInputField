@@ -9,7 +9,6 @@
 import UIKit
 
 protocol IMTokenInputViewDelegate {
-    
     func tokenInputView(_ tokenInputView: IMTokenInputView, didSelect token: Token)
     func tokenInputView(_ tokenInputView: IMTokenInputView, didAdd token: Token)
     func tokenInputView(_ tokenInputView: IMTokenInputView, didRemove token: Token)
@@ -112,16 +111,18 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
     fileprivate func addToken(_ token:Token) {
         if !allTokens.contains(token) {
             // add element into array first
+            collectionView.scrollToLastItem(at: .centeredHorizontally)
             self.allTokens.append(token)
-            
+            let targetIndexPath = NSIndexPath(item: (allTokens.count)-1, section: 0)
             // insert new cell
             OperationQueue.main.addOperation {
+                self.collectionView.scrollToLastItem(at: .right)
                 self.collectionView.performBatchUpdates({ [weak self] in
-                    let targetIndexPath = NSIndexPath(item: (self?.allTokens.count)!-1, section: 0)
                     self?.collectionView.insertItems(at: [targetIndexPath as IndexPath])
                     }, completion: {[weak self] (complete) in
                         guard let strongSelf = self else { return }
-                        strongSelf.scrollToLastItem()
+                       // strongSelf.collectionView.scrollToLastItem(at: .left)
+                      //  strongSelf.scrollToLastItem()
                         strongSelf.delegate?.tokenInputView(strongSelf, didAdd: token)
                 })
                 
@@ -150,14 +151,14 @@ class IMTokenInputView: UIView, IMTokenInutViewProtocol {
 //            && (totalSections - 1) == indexPath.section
 //    }
     
-   fileprivate func scrollToLastItem() {
-        
-        let sections = collectionView.numberOfSections
-        let items = collectionView.numberOfItems(inSection: sections - 1)
-        let lastIndexPath = IndexPath(item: items - 1, section: sections - 1)
-        collectionView.scrollToItem(at: lastIndexPath, at: .left, animated: true)
-    
-    }
+//   fileprivate func scrollToLastItem() {
+//
+//        let sections = collectionView.numberOfSections
+//        let items = collectionView.numberOfItems(inSection: sections - 1)
+//        let lastIndexPath = IndexPath(item: items - 1, section: sections - 1)
+//        collectionView.scrollToItem(at: lastIndexPath, at: .left, animated: true)
+//
+//    }
     
     fileprivate func removeItem(at indexPath: IndexPath, then: @escaping (Bool) -> Void) {
         self.collectionView.performBatchUpdates({
@@ -219,12 +220,13 @@ extension IMTokenInputView {
 // MARK: TokenCell Delegate
 
 extension IMTokenInputView: TokenCellDelegate {
+    
     func willRemove(_ cell: TokenCell) {
         if let token = cell.token {
             if cell.hasSelected {
-                let isRemoved = allTokens.removeObject(obj: token)
-                if isRemoved {
-                    if let indexPath = self.collectionView.indexPath(for: cell) {
+                if let indexPath = self.collectionView.indexPath(for: cell)  {
+                    let isRemoved = allTokens.removeObject(obj: token)
+                    if isRemoved {
                         self.removeItem(at: indexPath, then: { (completed) in
                             
                             self.respondingCell = nil
@@ -245,9 +247,12 @@ extension IMTokenInputView: TokenCellDelegate {
                                 
                             }
                         })
+                        
                     } else {
-                        print("Path not found...")
+                        debugPrint("Fail to remove from array")
                     }
+                } else {
+                    debugPrint("Path not found...")
                 }
             } else {
                 cell.hasSelected = true
@@ -255,10 +260,9 @@ extension IMTokenInputView: TokenCellDelegate {
                 let indexPath  = collectionView.indexPath(for: cell)
                 collectionView.scrollToItem(at: indexPath!, at: .right, animated: true)
             }
-
-            
         }
     }
+    
 }
 
 

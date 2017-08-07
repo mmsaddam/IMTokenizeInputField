@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41791CDD1F3695A400AAC399 /* TokenizeInputField.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41791CD41F3695A400AAC399 /* TokenizeInputField.framework */; };
+		41791CE41F3695A400AAC399 /* TokenizeInputFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41791CE31F3695A400AAC399 /* TokenizeInputFieldTests.swift */; };
+		41791CE61F3695A400AAC399 /* TokenizeInputField.h in Headers */ = {isa = PBXBuildFile; fileRef = 41791CD61F3695A400AAC399 /* TokenizeInputField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41791CE91F3695A400AAC399 /* TokenizeInputField.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41791CD41F3695A400AAC399 /* TokenizeInputField.framework */; };
+		41791CEA1F3695A400AAC399 /* TokenizeInputField.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 41791CD41F3695A400AAC399 /* TokenizeInputField.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		41C703C71E71C3400012D66F /* IMToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C703C61E71C3400012D66F /* IMToken.swift */; };
 		41C703C91E71CAEA0012D66F /* IMTokenInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C703C81E71CAEA0012D66F /* IMTokenInputView.swift */; };
 		41C703CD1E71D4930012D66F /* AllExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C703CC1E71D4930012D66F /* AllExtensions.swift */; };
@@ -21,7 +26,51 @@
 		41F7CE621E70E6EF00F6ADC8 /* TokenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F7CE611E70E6EF00F6ADC8 /* TokenCell.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		41791CDE1F3695A400AAC399 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41F7CE441E70E2E800F6ADC8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41791CD31F3695A400AAC399;
+			remoteInfo = TokenizeInputField;
+		};
+		41791CE01F3695A400AAC399 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41F7CE441E70E2E800F6ADC8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41F7CE4B1E70E2E800F6ADC8;
+			remoteInfo = IMTokenizeInputField;
+		};
+		41791CE71F3695A400AAC399 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41F7CE441E70E2E800F6ADC8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41791CD31F3695A400AAC399;
+			remoteInfo = TokenizeInputField;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		41791CF01F3695A400AAC399 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				41791CEA1F3695A400AAC399 /* TokenizeInputField.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		41791CD41F3695A400AAC399 /* TokenizeInputField.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TokenizeInputField.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		41791CD61F3695A400AAC399 /* TokenizeInputField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TokenizeInputField.h; sourceTree = "<group>"; };
+		41791CD71F3695A400AAC399 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		41791CDC1F3695A400AAC399 /* TokenizeInputFieldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TokenizeInputFieldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		41791CE31F3695A400AAC399 /* TokenizeInputFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenizeInputFieldTests.swift; sourceTree = "<group>"; };
+		41791CE51F3695A400AAC399 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41C703C61E71C3400012D66F /* IMToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMToken.swift; sourceTree = "<group>"; };
 		41C703C81E71CAEA0012D66F /* IMTokenInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMTokenInputView.swift; sourceTree = "<group>"; };
 		41C703CC1E71D4930012D66F /* AllExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllExtensions.swift; sourceTree = "<group>"; };
@@ -39,20 +88,56 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		41F7CE491E70E2E800F6ADC8 /* Frameworks */ = {
+		41791CD01F3695A400AAC399 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		41791CD91F3695A400AAC399 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41791CDD1F3695A400AAC399 /* TokenizeInputField.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41F7CE491E70E2E800F6ADC8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41791CE91F3695A400AAC399 /* TokenizeInputField.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		41791CD51F3695A400AAC399 /* TokenizeInputField */ = {
+			isa = PBXGroup;
+			children = (
+				41791CD61F3695A400AAC399 /* TokenizeInputField.h */,
+				41791CD71F3695A400AAC399 /* Info.plist */,
+			);
+			path = TokenizeInputField;
+			sourceTree = "<group>";
+		};
+		41791CE21F3695A400AAC399 /* TokenizeInputFieldTests */ = {
+			isa = PBXGroup;
+			children = (
+				41791CE31F3695A400AAC399 /* TokenizeInputFieldTests.swift */,
+				41791CE51F3695A400AAC399 /* Info.plist */,
+			);
+			path = TokenizeInputFieldTests;
+			sourceTree = "<group>";
+		};
 		41F7CE431E70E2E800F6ADC8 = {
 			isa = PBXGroup;
 			children = (
 				41F7CE4E1E70E2E800F6ADC8 /* IMTokenizeInputField */,
+				41791CD51F3695A400AAC399 /* TokenizeInputField */,
+				41791CE21F3695A400AAC399 /* TokenizeInputFieldTests */,
 				41F7CE4D1E70E2E800F6ADC8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,6 +146,8 @@
 			isa = PBXGroup;
 			children = (
 				41F7CE4C1E70E2E800F6ADC8 /* IMTokenizeInputField.app */,
+				41791CD41F3695A400AAC399 /* TokenizeInputField.framework */,
+				41791CDC1F3695A400AAC399 /* TokenizeInputFieldTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -87,7 +174,55 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		41791CD11F3695A400AAC399 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41791CE61F3695A400AAC399 /* TokenizeInputField.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		41791CD31F3695A400AAC399 /* TokenizeInputField */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 41791CEF1F3695A400AAC399 /* Build configuration list for PBXNativeTarget "TokenizeInputField" */;
+			buildPhases = (
+				41791CCF1F3695A400AAC399 /* Sources */,
+				41791CD01F3695A400AAC399 /* Frameworks */,
+				41791CD11F3695A400AAC399 /* Headers */,
+				41791CD21F3695A400AAC399 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TokenizeInputField;
+			productName = TokenizeInputField;
+			productReference = 41791CD41F3695A400AAC399 /* TokenizeInputField.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		41791CDB1F3695A400AAC399 /* TokenizeInputFieldTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 41791CF11F3695A400AAC399 /* Build configuration list for PBXNativeTarget "TokenizeInputFieldTests" */;
+			buildPhases = (
+				41791CD81F3695A400AAC399 /* Sources */,
+				41791CD91F3695A400AAC399 /* Frameworks */,
+				41791CDA1F3695A400AAC399 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				41791CDF1F3695A400AAC399 /* PBXTargetDependency */,
+				41791CE11F3695A400AAC399 /* PBXTargetDependency */,
+			);
+			name = TokenizeInputFieldTests;
+			productName = TokenizeInputFieldTests;
+			productReference = 41791CDC1F3695A400AAC399 /* TokenizeInputFieldTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		41F7CE4B1E70E2E800F6ADC8 /* IMTokenizeInputField */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 41F7CE5E1E70E2E800F6ADC8 /* Build configuration list for PBXNativeTarget "IMTokenizeInputField" */;
@@ -95,10 +230,12 @@
 				41F7CE481E70E2E800F6ADC8 /* Sources */,
 				41F7CE491E70E2E800F6ADC8 /* Frameworks */,
 				41F7CE4A1E70E2E800F6ADC8 /* Resources */,
+				41791CF01F3695A400AAC399 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				41791CE81F3695A400AAC399 /* PBXTargetDependency */,
 			);
 			name = IMTokenizeInputField;
 			productName = IMTokenizeInputField;
@@ -111,10 +248,19 @@
 		41F7CE441E70E2E800F6ADC8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0820;
+				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Muzahidul Islam";
 				TargetAttributes = {
+					41791CD31F3695A400AAC399 = {
+						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = 88SDW87532;
+					};
+					41791CDB1F3695A400AAC399 = {
+						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = 88SDW87532;
+						TestTargetID = 41F7CE4B1E70E2E800F6ADC8;
+					};
 					41F7CE4B1E70E2E800F6ADC8 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 88SDW87532;
@@ -136,11 +282,27 @@
 			projectRoot = "";
 			targets = (
 				41F7CE4B1E70E2E800F6ADC8 /* IMTokenizeInputField */,
+				41791CD31F3695A400AAC399 /* TokenizeInputField */,
+				41791CDB1F3695A400AAC399 /* TokenizeInputFieldTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		41791CD21F3695A400AAC399 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41791CDA1F3695A400AAC399 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		41F7CE4A1E70E2E800F6ADC8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -154,6 +316,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		41791CCF1F3695A400AAC399 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41791CD81F3695A400AAC399 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41791CE41F3695A400AAC399 /* TokenizeInputFieldTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		41F7CE481E70E2E800F6ADC8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -171,6 +348,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		41791CDF1F3695A400AAC399 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41791CD31F3695A400AAC399 /* TokenizeInputField */;
+			targetProxy = 41791CDE1F3695A400AAC399 /* PBXContainerItemProxy */;
+		};
+		41791CE11F3695A400AAC399 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41F7CE4B1E70E2E800F6ADC8 /* IMTokenizeInputField */;
+			targetProxy = 41791CE01F3695A400AAC399 /* PBXContainerItemProxy */;
+		};
+		41791CE81F3695A400AAC399 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41791CD31F3695A400AAC399 /* TokenizeInputField */;
+			targetProxy = 41791CE71F3695A400AAC399 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		41F7CE531E70E2E800F6ADC8 /* Main.storyboard */ = {
@@ -192,6 +387,120 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		41791CEB1F3695A400AAC399 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 88SDW87532;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = TokenizeInputField/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.iMuzahid.TokenizeInputField;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		41791CEC1F3695A400AAC399 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 88SDW87532;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = TokenizeInputField/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.iMuzahid.TokenizeInputField;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		41791CED1F3695A400AAC399 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 88SDW87532;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = TokenizeInputFieldTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.iMuzahid.TokenizeInputFieldTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IMTokenizeInputField.app/IMTokenizeInputField";
+			};
+			name = Debug;
+		};
+		41791CEE1F3695A400AAC399 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 88SDW87532;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = TokenizeInputFieldTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.iMuzahid.TokenizeInputFieldTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IMTokenizeInputField.app/IMTokenizeInputField";
+			};
+			name = Release;
+		};
 		41F7CE5C1E70E2E800F6ADC8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -289,6 +598,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 88SDW87532;
 				INFOPLIST_FILE = IMTokenizeInputField/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -304,6 +614,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 88SDW87532;
 				INFOPLIST_FILE = IMTokenizeInputField/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -318,6 +629,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		41791CEF1F3695A400AAC399 /* Build configuration list for PBXNativeTarget "TokenizeInputField" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41791CEB1F3695A400AAC399 /* Debug */,
+				41791CEC1F3695A400AAC399 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		41791CF11F3695A400AAC399 /* Build configuration list for PBXNativeTarget "TokenizeInputFieldTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41791CED1F3695A400AAC399 /* Debug */,
+				41791CEE1F3695A400AAC399 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		41F7CE471E70E2E800F6ADC8 /* Build configuration list for PBXProject "IMTokenizeInputField" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
