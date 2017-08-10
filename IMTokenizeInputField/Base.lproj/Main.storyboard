@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j8Q-aO-Vkd" customClass="IMTokenInputView" customModule="IMTokenizeInputField" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j8Q-aO-Vkd" customClass="IMTokenInputView" customModule="TokenizeInputField">
                                 <rect key="frame" x="10" y="64" width="300" height="70"/>
                                 <color key="backgroundColor" red="0.23040400137422182" green="0.28878675215999544" blue="0.72336632013320923" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -47,8 +47,8 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="UgU-4O-ljg"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="HSD-0I-sko"/>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="7od-lr-zG6"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="ckl-F9-ick"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -68,7 +68,7 @@
                     <size key="freeformSize" width="320" height="667"/>
                     <connections>
                         <outlet property="tableView" destination="wyT-LN-Pnw" id="1me-h3-4fF"/>
-                        <outlet property="tokenInputView" destination="j8Q-aO-Vkd" id="6SX-gj-OmP"/>
+                        <outlet property="tokenInputView" destination="j8Q-aO-Vkd" id="phZ-Oe-tlo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

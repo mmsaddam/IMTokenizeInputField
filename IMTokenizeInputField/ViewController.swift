@@ -8,6 +8,7 @@
 
 import UIKit
 import TokenizeInputField
+
 class ViewController: UIViewController {
 	
 	@IBOutlet weak var tableView: UITableView!
@@ -27,9 +28,9 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
         
-	//	tokenInputView.tokenHeight = 40.0
+		tokenInputView.tokenHeight = 40.0
 		self.automaticallyAdjustsScrollViewInsets = false
-	//	tokenInputView.delegate = self
+		tokenInputView.delegate = self
         
 		for i in 0..<99 {
 			names.append("item number \(i)")

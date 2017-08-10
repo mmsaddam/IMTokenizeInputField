@@ -19,6 +19,8 @@
 		41781C211F37F62A00964CAA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F7CE511E70E2E800F6ADC8 /* ViewController.swift */; };
 		41791CE41F3695A400AAC399 /* TokenizeInputFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41791CE31F3695A400AAC399 /* TokenizeInputFieldTests.swift */; };
 		41791CE61F3695A400AAC399 /* TokenizeInputField.h in Headers */ = {isa = PBXBuildFile; fileRef = 41791CD61F3695A400AAC399 /* TokenizeInputField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4179664A1F3BDEE30033108D /* TokenizeInputField.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41791CD41F3695A400AAC399 /* TokenizeInputField.framework */; };
+		4179664B1F3BDEE30033108D /* TokenizeInputField.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 41791CD41F3695A400AAC399 /* TokenizeInputField.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		41F7CE501E70E2E800F6ADC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F7CE4F1E70E2E800F6ADC8 /* AppDelegate.swift */; };
 		41F7CE551E70E2E800F6ADC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41F7CE531E70E2E800F6ADC8 /* Main.storyboard */; };
 		41F7CE571E70E2E800F6ADC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41F7CE561E70E2E800F6ADC8 /* Assets.xcassets */; };
@@ -40,7 +42,28 @@
 			remoteGlobalIDString = 41F7CE4B1E70E2E800F6ADC8;
 			remoteInfo = IMTokenizeInputField;
 		};
+		4179664C1F3BDEE30033108D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41F7CE441E70E2E800F6ADC8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41791CD31F3695A400AAC399;
+			remoteInfo = TokenizeInputField;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4179664E1F3BDEE30033108D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4179664B1F3BDEE30033108D /* TokenizeInputField.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		410C29B51F37E78B00666E02 /* TestFramework.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFramework.swift; sourceTree = "<group>"; };
@@ -86,6 +109,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				41781C201F37F5D900964CAA /* TokenizeInputField.framework in Frameworks */,
+				4179664A1F3BDEE30033108D /* TokenizeInputField.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,10 +233,12 @@
 				41F7CE481E70E2E800F6ADC8 /* Sources */,
 				41F7CE491E70E2E800F6ADC8 /* Frameworks */,
 				41F7CE4A1E70E2E800F6ADC8 /* Resources */,
+				4179664E1F3BDEE30033108D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4179664D1F3BDEE30033108D /* PBXTargetDependency */,
 			);
 			name = IMTokenizeInputField;
 			productName = IMTokenizeInputField;
@@ -337,6 +363,11 @@
 			isa = PBXTargetDependency;
 			target = 41F7CE4B1E70E2E800F6ADC8 /* IMTokenizeInputField */;
 			targetProxy = 41791CE01F3695A400AAC399 /* PBXContainerItemProxy */;
+		};
+		4179664D1F3BDEE30033108D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41791CD31F3695A400AAC399 /* TokenizeInputField */;
+			targetProxy = 4179664C1F3BDEE30033108D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -570,6 +601,7 @@
 		41F7CE5F1E70E2E800F6ADC8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 88SDW87532;
@@ -586,6 +618,7 @@
 		41F7CE601E70E2E800F6ADC8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 88SDW87532;
